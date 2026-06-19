@@ -1,0 +1,31 @@
+---
+title: Quickstart
+description: Get your documentation site running in a minute.
+---
+
+## Start the dev server
+
+From your project folder, run:
+
+```bash
+velu dev
+```
+
+Then open the printed URL. The server live-reloads as you edit content
+or `velu.json`.
+
+## Add a page
+
+<Steps>
+  <Step title="Create the file">
+    Add a new `.mdx` file anywhere in the project, e.g.
+    `guides/hello.mdx`, with a `title` in its frontmatter.
+  </Step>
+  <Step title="List it in navigation">
+    Add its path (without `.mdx`) to a group's `pages` array in
+    `velu.json`.
+  </Step>
+  <Step title="Save">
+    The sidebar updates and your page is live.
+  </Step>
+</Steps>

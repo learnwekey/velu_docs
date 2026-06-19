@@ -1,0 +1,19 @@
+---
+title: Development
+description: Preview your docs locally as you write.
+---
+
+`velu dev` serves your project with server-side rendering and live
+reload, so what you see locally matches production.
+
+<Callout type="note">
+  The dev server reads `velu.json` from the folder you point it at.
+  Run it from your project root, or pass the path: `velu dev ./docs`.
+</Callout>
+
+## What reloads automatically
+
+- Editing any `.mdx` page reloads that page.
+- Editing `velu.json` (colors, font, favicon, navigation) re-renders
+  the whole site.
+- Adding or removing a page file updates the route map.

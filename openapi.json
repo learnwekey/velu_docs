@@ -1,0 +1,160 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Product Catalog API",
+    "version": "1.0.0",
+    "description": "A friendly, fully-hosted example API — a product catalog backed by the live https://dummyjson.com service. Every operation hits the real API: list, search, fetch, create, update and delete products and see real responses."
+  },
+  "servers": [{ "url": "https://dummyjson.com" }],
+  "tags": [{ "name": "Products", "description": "Browse and manage the product catalog." }],
+  "paths": {
+    "/products": {
+      "get": {
+        "operationId": "listProducts",
+        "summary": "List products",
+        "description": "List products, with optional pagination.",
+        "tags": ["Products"],
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer" }, "description": "How many products to return (0 returns all)." },
+          { "name": "skip", "in": "query", "schema": { "type": "integer" }, "description": "How many products to skip (for pagination)." }
+        ],
+        "responses": {
+          "200": {
+            "description": "A page of products.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductList" } } }
+          }
+        }
+      }
+    },
+    "/products/search": {
+      "get": {
+        "operationId": "searchProducts",
+        "summary": "Search products",
+        "description": "Search the catalog by a free-text query.",
+        "tags": ["Products"],
+        "parameters": [
+          { "name": "q", "in": "query", "required": true, "schema": { "type": "string" }, "description": "The search query (try `phone`)." }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching products.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductList" } } }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "operationId": "getProduct",
+        "summary": "Get a product",
+        "description": "Retrieve a single product by its id.",
+        "tags": ["Products"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" }, "description": "The product id (try `1`)." }
+        ],
+        "responses": {
+          "200": {
+            "description": "The product.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Product" } } }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateProduct",
+        "summary": "Update a product",
+        "description": "Update fields on an existing product. (Simulated by the upstream API — the response reflects the change but nothing is persisted.)",
+        "tags": ["Products"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" }, "description": "The product id." }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductInput" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated product.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Product" } } }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteProduct",
+        "summary": "Delete a product",
+        "description": "Delete a product by its id. (Simulated — the response includes `isDeleted` and `deletedOn`.)",
+        "tags": ["Products"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" }, "description": "The product id." }
+        ],
+        "responses": {
+          "200": {
+            "description": "The deleted product.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Product" } } }
+          }
+        }
+      }
+    },
+    "/products/add": {
+      "post": {
+        "operationId": "addProduct",
+        "summary": "Add a product",
+        "description": "Create a new product. (Simulated — the response echoes the body with a fresh `id`.)",
+        "tags": ["Products"],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProductInput" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "The created product.",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Product" } } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "description": "Unique identifier." },
+          "title": { "type": "string", "description": "Product name." },
+          "description": { "type": "string", "description": "Product description." },
+          "category": { "type": "string", "description": "Category slug." },
+          "price": { "type": "number", "description": "Price in USD." },
+          "discountPercentage": { "type": "number", "description": "Discount, as a percentage." },
+          "rating": { "type": "number", "description": "Average customer rating (0–5)." },
+          "stock": { "type": "integer", "description": "Units in stock." },
+          "brand": { "type": "string", "description": "Brand name." },
+          "thumbnail": { "type": "string", "description": "Thumbnail image URL." }
+        }
+      },
+      "ProductList": {
+        "type": "object",
+        "properties": {
+          "products": { "type": "array", "description": "The products on this page.", "items": { "$ref": "#/components/schemas/Product" } },
+          "total": { "type": "integer", "description": "Total number of matching products." },
+          "skip": { "type": "integer", "description": "How many were skipped." },
+          "limit": { "type": "integer", "description": "How many were returned." }
+        }
+      },
+      "ProductInput": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string", "description": "Product name." },
+          "description": { "type": "string", "description": "Product description." },
+          "category": { "type": "string", "description": "Category slug." },
+          "price": { "type": "number", "description": "Price in USD." }
+        },
+        "example": {
+          "title": "Velu Notebook",
+          "description": "A dotted-grid notebook for docs notes.",
+          "category": "stationery",
+          "price": 19.99
+        }
+      }
+    }
+  }
+}

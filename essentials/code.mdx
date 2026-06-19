@@ -1,0 +1,29 @@
+---
+title: Code blocks
+description: Syntax-highlighted code and groups.
+---
+
+Fenced code blocks are upgraded to a rich code component with a copy
+button and a language label.
+
+```js
+export function greet(name) {
+  return `Hello, ${name}!`;
+}
+```
+
+## Code groups
+
+Show the same example in several languages with a `CodeGroup`. Each
+alternative is a `<CodeBlock>` with a `title` (the tab label) and a
+`language` (drives syntax highlighting and the tab's language icon):
+
+<CodeGroup>
+  <CodeBlock title="index.js" language="javascript">
+    {`fetch('/api/hello').then((r) => r.json());`}
+  </CodeBlock>
+  <CodeBlock title="main.py" language="python">
+    {`import requests
+requests.get('/api/hello').json()`}
+  </CodeBlock>
+</CodeGroup>

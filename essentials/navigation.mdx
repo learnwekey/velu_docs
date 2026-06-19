@@ -1,0 +1,39 @@
+---
+title: Navigation
+description: Organize your docs with tabs, groups, and pages.
+---
+
+`navigation` in `velu.json` is a tree. The pieces, outermost to
+innermost:
+
+- **tabs** — top-level sections in the header (e.g. Guides, API).
+- **groups** — sidebar sections within a tab.
+- **pages** — the page paths in a group; a page may also be a nested
+  group.
+- **anchors** — pinned links (often external) shown above the groups.
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          { "group": "Getting Started", "pages": ["index", "quickstart"] }
+        ]
+      }
+    ]
+  }
+}
+```
+
+<Callout type="note">
+  Sidebar labels come from each page's frontmatter `title` — you don't
+  repeat them in `navigation`.
+</Callout>
+
+## Multiple products, versions, languages
+
+Wrap your tabs in `products`, `versions`, or `languages` to offer a
+switcher. The active non-default choice becomes a URL prefix
+(`/v2/...`, `/fr/...`).

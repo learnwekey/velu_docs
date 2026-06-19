@@ -1,0 +1,26 @@
+---
+title: Claude Code
+description: Work on your docs with Claude Code.
+---
+
+Claude Code can read your `velu.json` and `.mdx` files to draft pages,
+restructure navigation, and keep content consistent.
+
+<Callout type="tip">
+  Keep page paths and `navigation` in sync — ask Claude to add a page
+  and wire it into the right group in one step.
+</Callout>
+
+## Suggested workflow
+
+<Steps>
+  <Step title="Describe the page">
+    Tell Claude the title and what it should cover.
+  </Step>
+  <Step title="Review the draft">
+    Claude writes the `.mdx` and adds it to `navigation`.
+  </Step>
+  <Step title="Preview">
+    `velu dev` reloads so you can read it in place.
+  </Step>
+</Steps>

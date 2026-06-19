@@ -1,0 +1,101 @@
+{
+  "$schema": "https://veludocs.com/velu.schema.json",
+  "name": "velu-starter",
+  "url": "https://veludocs.com",
+  "colors": {
+    "primary": "#dc143c"
+  },
+  "favicon": "/favicon.svg",
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "icon": "book-open",
+        "href": "https://veludocs.com"
+      },
+      {
+        "anchor": "Community",
+        "icon": "users",
+        "href": "https://veludocs.com/community"
+      }
+    ],
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "icon": "rocket",
+            "pages": [
+              "index",
+              "quickstart",
+              "development"
+            ]
+          },
+          {
+            "group": "Customization",
+            "icon": "sliders-horizontal",
+            "pages": [
+              "essentials/settings",
+              "essentials/navigation"
+            ]
+          },
+          {
+            "group": "Writing Content",
+            "icon": "pen-line",
+            "pages": [
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images"
+            ]
+          },
+          {
+            "group": "AI Tools",
+            "icon": "sparkles",
+            "pages": [
+              "ai-tools/claude-code",
+              "ai-tools/cursor"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "icon": "terminal",
+        "openapi": "/openapi.json",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "api": {
+    "playground": {
+      "proxy": true
+    },
+    "examples": {
+      "languages": [
+        "curl",
+        "javascript",
+        "python",
+        "ruby"
+      ]
+    }
+  }
+}

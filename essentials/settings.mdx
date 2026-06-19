@@ -1,0 +1,30 @@
+---
+title: Settings
+description: Theme your site through velu.json.
+---
+
+Your site's look comes from a few top-level keys in `velu.json`.
+
+```json
+{
+  "name": "Acme Docs",
+  "colors": { "primary": "#16a34a", "light": "#07c983", "dark": "#15803d" },
+  "favicon": "/favicon.svg",
+  "font": { "family": "Inter" }
+}
+```
+
+## Colors
+
+`colors.primary` sets the accent used across the UI. `light` and
+`dark` override it per theme; both default to `primary`.
+
+## Font
+
+`font.family` is any Google Font family — it's loaded automatically and
+applied as the body font.
+
+<Callout type="tip">
+  `favicon` is a path relative to your project root, e.g.
+  `/favicon.svg`.
+</Callout>

@@ -1,0 +1,43 @@
+---
+title: Introduction
+description: How this API reference is generated.
+---
+
+The endpoints in this tab are generated automatically from an OpenAPI
+spec (`openapi.json`). Each operation becomes its own page — with
+parameters, request body, and responses — and an interactive **Try It**
+playground you can use to send real requests.
+
+<Callout type="note">
+  This is a second tab ("API Reference"). Tabs let you keep guides and
+  reference docs in separate top-level sections of the same site. Point
+  the tab's `openapi` field at your own spec to replace this example.
+</Callout>
+
+## How it works
+
+Add an `openapi` field to a tab (or group) in `velu.json`:
+
+```json
+{
+  "tab": "API Reference",
+  "openapi": "/openapi.json"
+}
+```
+
+Velu reads the spec, groups the operations by their tag, and renders a
+page per endpoint. No hand-written endpoint pages required.
+
+## The example API
+
+This starter points at a live demo API — a small **product catalog**
+backed by [dummyjson.com](https://dummyjson.com). Open any endpoint in
+the sidebar, hit **Try It**, and send a real request:
+
+- **Get a product** — try `id` = `1`
+- **Search products** — try `q` = `phone`
+- **Add a product** — the body is pre-filled; Send returns a created product
+
+Requests are routed through the dev server's proxy so they aren't blocked
+by CORS. Set `api.playground.proxy` to `false` to send straight from the
+browser.
