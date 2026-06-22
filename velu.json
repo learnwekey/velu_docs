@@ -82,6 +82,20 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Test Tab",
+        "pages": [],
+        "icon": "sparkles",
+        "groups": [
+          {
+            "group": "Group test 1",
+            "pages": [
+              "new-page-test"
+            ],
+            "icon": "globe"
+          }
+        ]
       }
     ]
   },
