@@ -1,0 +1,92 @@
+---
+title: Lint your documentation
+description: Validate the project configuration and confirm that referenced pages exist.
+---
+
+Run linting before committing documentation changes. `velu lint` validates the
+project configuration and checks the pages referenced by navigation without
+starting the local site.
+
+## Run linting
+
+From the directory containing `docs.json` or `velu.json`, run:
+
+```bash
+velu lint
+```
+
+A valid project prints:
+
+```text
+✅ docs.json/velu.json is valid. All referenced pages exist.
+```
+
+## What linting checks
+
+<CardGroup>
+
+<Card title="Configuration" icon="braces">
+Checks that `docs.json` or `velu.json` is valid and follows the supported
+configuration structure.
+</Card>
+
+<Card title="Navigation" icon="route">
+Checks the configured navigation hierarchy and page references.
+</Card>
+
+<Card title="Pages" icon="file-check">
+Confirms that every page referenced in navigation exists as a Markdown or MDX
+file.
+</Card>
+
+</CardGroup>
+
+<Callout type="warning">
+
+Linting checks pages referenced by navigation. Add a new page to `velu.json`
+before relying on `velu lint` to check it.
+
+</Callout>
+
+## Run linting with npx
+
+If Velu is not installed globally, run:
+
+```bash
+npx @aravindc26/velu lint
+```
+
+## Add linting to your workflow
+
+Run `velu lint`:
+
+- After adding or moving a page.
+- After changing navigation or site configuration.
+- Before committing a documentation update.
+- In continuous integration before allowing documentation changes to merge.
+
+## Resolve common errors
+
+<AccordionGroup>
+
+<Accordion title="A navigation page is missing">
+
+Confirm that the path is relative to the project root, omits `.md` or `.mdx`,
+and matches the file's capitalization.
+
+</Accordion>
+
+<Accordion title="The configuration cannot be parsed">
+
+Check the JSON syntax for missing quotes, trailing commas, and unclosed braces.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Return to the <a href="/quickstart">Quickstart</a> to publish the checked change.</li>
+  <li>Review the <a href="/getting-started/deployment">publishing workflow</a>.</li>
+</ol>

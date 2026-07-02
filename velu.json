@@ -1,7 +1,7 @@
 {
   "$schema": "https://veludocs.com/velu.schema.json",
-  "name": "velu-starter",
-  "url": "https://veludocs.com",
+  "name": "Velu Documentation",
+  "url": "https://docs.getvelu.com",
   "colors": {
     "primary": "#dc143c"
   },
@@ -22,12 +22,7 @@
       {
         "anchor": "Documentation",
         "icon": "book-open",
-        "href": "https://veludocs.com"
-      },
-      {
-        "anchor": "Community",
-        "icon": "users",
-        "href": "https://veludocs.com/community"
+        "href": "https://docs.getvelu.com"
       }
     ],
     "tabs": [
@@ -40,13 +35,30 @@
             "pages": [
               "index",
               "quickstart",
-              "development"
+              "getting-started/how-velu-works"
+            ]
+          },
+          {
+            "group": "Develop Locally",
+            "icon": "terminal",
+            "pages": [
+              "getting-started/install-velu",
+              "getting-started/local-preview",
+              "getting-started/lint"
+            ]
+          },
+          {
+            "group": "Publish",
+            "icon": "cloud-upload",
+            "pages": [
+              "getting-started/deployment"
             ]
           },
           {
             "group": "Customization",
             "icon": "sliders-horizontal",
             "pages": [
+              "essentials/docs-site-structure",
               "essentials/settings",
               "essentials/navigation"
             ]
@@ -78,23 +90,8 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction",
-              "api-reference/writing-api"
+              "api-reference/introduction"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Test Tab",
-        "pages": [],
-        "icon": "sparkles",
-        "groups": [
-          {
-            "group": "Group test 1",
-            "pages": [
-              "new-page-test"
-            ],
-            "icon": "globe"
           }
         ]
       }

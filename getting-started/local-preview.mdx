@@ -1,0 +1,99 @@
+---
+title: Preview locally
+description: Run your documentation locally and review changes before publishing.
+---
+
+`velu run` builds the documentation, starts a local site, and watches the
+project for changes.
+
+## Start the preview
+
+From the directory containing `docs.json` or `velu.json`, run:
+
+```bash
+velu run
+```
+
+Velu prints the preview URL when the server is ready. The default is:
+
+```text
+http://localhost:4321
+```
+
+Run the command from the directory containing the Velu configuration.
+
+## Review changes as you write
+
+The preview reloads when you change:
+
+- A Markdown page.
+- `velu.json`.
+
+Use the preview to check navigation, components, code examples, images,
+branding, and generated API pages before publishing.
+
+<Callout type="note">
+
+Some hosted capabilities depend on Velu's production services. Their controls
+may be unavailable or use preview behavior while running locally.
+
+</Callout>
+
+## Use another port
+
+Pass the `--port` option:
+
+```bash
+velu run --port 4322
+```
+
+Velu then serves the site at `http://localhost:4322`.
+
+## Stop the preview
+
+Return to the terminal running Velu and press `Ctrl+C`.
+
+## Troubleshooting
+
+<AccordionGroup>
+
+<Accordion title="Velu cannot find the configuration">
+
+Run the command from the project root. If the repository is new, run
+`velu init` before starting the site.
+
+</Accordion>
+
+<Accordion title="The default port is already in use">
+
+Start the preview on another port:
+
+```bash
+velu run --port 4322
+```
+
+</Accordion>
+
+<Accordion title="A page does not appear">
+
+Confirm that the Markdown file exists and that its path appears in the
+`navigation` section of `velu.json` without the file extension. Then run
+`velu lint`.
+
+</Accordion>
+
+<Accordion title="Changes do not reload">
+
+Check the terminal for a Markdown or configuration error. Resolve the error
+and save the file again. Restart `velu run` if the process has stopped.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li><a href="/getting-started/lint">Lint the project</a>.</li>
+  <li><a href="/getting-started/deployment">Publish a change</a>.</li>
+</ol>

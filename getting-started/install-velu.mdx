@@ -1,0 +1,107 @@
+---
+title: Install Velu
+description: Install the Velu package and use its local documentation commands.
+---
+
+Install Velu to initialize a documentation project, run a local site, check
+configuration and page references, and create a production build.
+
+## Requirements
+
+- Node.js 20.9 or later.
+- npm.
+- Git for the recommended docs-as-code workflow.
+
+Check your Node.js version:
+
+```bash
+node --version
+```
+
+## Install Velu
+
+<CodeGroup>
+  <CodeBlock title="Install globally" language="bash">
+    {`npm install --global @aravindc26/velu`}
+  </CodeBlock>
+  <CodeBlock title="Run with npx" language="bash">
+    {`npx @aravindc26/velu run`}
+  </CodeBlock>
+</CodeGroup>
+
+A global installation provides the shorter `velu` command. Use npx when you
+do not want to install the package globally.
+
+## Available commands
+
+| Command | Purpose |
+| --- | --- |
+| `velu init` | Scaffold a documentation project in the current directory. |
+| `velu lint` | Validate the configuration and check referenced pages. |
+| `velu run` | Build and start the local site on port 4321. |
+| `velu run --port <number>` | Start the local site on another port. |
+| `velu build` | Build the static site without starting a server. |
+
+`velu build` writes the static output to `.velu-out/out`.
+
+## Initialize a new project
+
+Create and enter the repository directory before initializing it:
+
+```bash
+mkdir your-docs-repo
+cd your-docs-repo
+velu init
+```
+
+Velu creates a site configuration, sample Markdown pages, tabs, and groups. It
+will not initialize the directory when `docs.json` or `velu.json` already
+exists.
+
+## Troubleshooting
+
+<AccordionGroup>
+
+<Accordion title="The velu command is not found">
+
+Open a new terminal after installing globally. If the command remains
+unavailable, run Velu through npx:
+
+```bash
+npx @aravindc26/velu run
+```
+
+</Accordion>
+
+<Accordion title="The global installation is denied">
+
+Use npx instead of changing system-directory permissions:
+
+```bash
+npx @aravindc26/velu lint
+```
+
+</Accordion>
+
+<Accordion title="The Node.js version is unsupported">
+
+Install Node.js 20.9 or later, reopen the terminal, and run `node --version`
+before retrying the installation.
+
+</Accordion>
+
+<Accordion title="Velu cannot find the project">
+
+Run commands from the directory containing `docs.json` or `velu.json`. Run
+`velu init` only when starting a new project.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Start a <a href="/getting-started/local-preview">local site</a>.</li>
+  <li>Learn how to <a href="/getting-started/lint">lint the project</a>.</li>
+</ol>

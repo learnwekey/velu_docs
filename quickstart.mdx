@@ -1,31 +1,252 @@
 ---
 title: Quickstart
-description: Get your documentation site running in a minute.
+description: Choose the dashboard editor or docs-as-code and publish your first change.
 ---
 
-## Start the dev server
+Velu supports two authoring and publishing workflows. Choose the method that
+fits your work and follow its steps to publish your first documentation change.
 
-From your project folder, run:
+## Before you begin
 
-```bash
-velu dev
-```
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Have access to a browser and the email address you want to use for your Velu account.</li>
+  <li>Use the dashboard editor if you want to work entirely in the browser. A Git repository is not required.</li>
+  <li>Have a Git documentation repository, permission to clone and push it, Git, npm, and Node.js 20.9 or later if you choose docs-as-code.</li>
+  <li>Use docs-as-code if you need Git-based automation, self-updating documentation, pull-request review, or AI coding agents with repository context.</li>
+</ol>
 
-Then open the printed URL. The server live-reloads as you edit content
-or `velu.json`.
+## Complete onboarding
 
-## Add a page
+Complete these steps once to create your account and reach the dashboard.
+Connecting a Git repository is not required during onboarding.
 
 <Steps>
-  <Step title="Create the file">
-    Add a new `.mdx` file anywhere in the project, e.g.
-    `guides/hello.mdx`, with a `title` in its frontmatter.
-  </Step>
-  <Step title="List it in navigation">
-    Add its path (without `.mdx`) to a group's `pages` array in
-    `velu.json`.
-  </Step>
-  <Step title="Save">
-    The sidebar updates and your page is live.
-  </Step>
+
+<Step title="Create your account">
+
+Open the Velu sign-up page and create your account.
+
+![Velu sign-up screen for creating an account](https://ik.imagekit.io/wgcu5dez6opg/VeluAstro/Velu%20docs%20images/Signup.png)
+
+</Step>
+
+<Step title="Choose an onboarding method">
+
+Choose the onboarding method that matches how you want to start. You can enter
+the dashboard without connecting a Git repository.
+
+![Velu onboarding screen for choosing a setup method](https://ik.imagekit.io/wgcu5dez6opg/VeluAstro/Velu%20docs%20images/Onboarding%20method.png)
+
+</Step>
+
+<Step title="Pick a plan">
+
+Select the plan that fits your documentation project.
+
+![Velu plan selection screen](https://ik.imagekit.io/wgcu5dez6opg/VeluAstro/Velu%20docs%20images/Pick%20a%20plan.png)
+
+</Step>
+
+<Step title="Complete onboarding">
+
+Finish onboarding and continue to the dashboard.
+
+![Velu onboarding completion screen with a link to continue to the dashboard](https://ik.imagekit.io/wgcu5dez6opg/VeluAstro/Velu%20docs%20images/Onboarding%20complete.png)
+
+</Step>
+
 </Steps>
+
+## Choose your workflow
+
+<Columns cols={2}>
+
+<Card title="Dashboard editor" icon="panels-top-left" cta={{ label: "Use the dashboard", href: "/quickstart#use-the-dashboard-editor" }}>
+Write, preview, and publish in the browser. A Git repository is not required.
+</Card>
+
+<Card title="Docs as code" icon="git-branch" cta={{ label: "Use docs as code", href: "/quickstart#use-docs-as-code" }}>
+Work locally and publish through Git. A connected documentation repository is
+required.
+</Card>
+
+</Columns>
+
+## Use the dashboard editor
+
+Use this workflow to create and publish documentation entirely in the browser.
+You can begin without connecting a Git repository.
+
+<Steps>
+
+<Step title="Open the documentation editor">
+
+Open your documentation project and enter the web editor. No Git connection or
+local installation is required.
+
+</Step>
+
+<Step title="Edit and preview a page">
+
+Open a page, update its introduction, and review the rendered preview.
+
+</Step>
+
+<Step title="Publish the change">
+
+Use the editor's publish action and monitor its status in the dashboard.
+
+</Step>
+
+<Step title="Verify the published page">
+
+Open the published documentation and confirm that your update is visible.
+
+</Step>
+
+</Steps>
+
+<Callout type="check">
+
+You have published a documentation change from the dashboard without a Git
+repository.
+
+</Callout>
+
+## Use docs as code
+
+Use this workflow when your documentation lives in Git or needs automation,
+self-updating content, local tooling, or repository-aware AI coding agents.
+Connecting a Git documentation repository is required.
+
+<Steps>
+
+<Step title="Connect your documentation repository">
+
+From the dashboard, connect the Git repository that contains or will contain
+your documentation.
+
+</Step>
+
+<Step title="Clone the repository">
+
+Clone the connected repository and enter its directory. Replace the example
+URL with the URL from your Git provider.
+
+```bash
+git clone https://github.com/your-login/your-docs-repo.git
+cd your-docs-repo
+```
+
+</Step>
+
+<Step title="Install Velu">
+
+Install the public Velu package globally:
+
+```bash
+npm install --global @aravindc26/velu
+```
+
+If the repository contains neither `docs.json` nor `velu.json`, initialize the
+project from the repository root:
+
+```bash
+velu init
+```
+
+Skip initialization when the connected repository already contains a Velu
+project.
+
+</Step>
+
+<Step title="Preview the documentation">
+
+Run the local site from the directory containing `velu.json`.
+
+
+```bash
+velu run
+```
+
+Open the URL printed in the terminal. The default address is
+`http://localhost:4321`.
+
+</Step>
+
+<Step title="Make a change with your AI coding agent">
+
+Open the repository in Codex, Claude Code, or another repository-aware coding
+agent. Give it a focused task such as:
+
+<Prompt title="Improve the quickstart" lines={5}>
+Update quickstart.md so it introduces our product and helps a new reader reach
+a first successful result. Preserve the existing page structure. Do not modify
+navigation or unrelated pages. Summarize the files you changed when finished.
+</Prompt>
+
+The local preview reloads after the file is saved.
+
+<Accordion title="Edit the page manually instead">
+
+Open `quickstart.md` and change its introductory paragraph. Save the file and
+return to the preview.
+
+</Accordion>
+
+</Step>
+
+<Step title="Lint the project">
+
+In another terminal, run:
+
+```bash
+velu lint
+```
+
+Resolve reported errors before publishing. A valid project confirms that the
+configuration is valid and all referenced pages exist.
+
+</Step>
+
+<Step title="Commit and push the change">
+
+Review the diff, then commit and push the documentation update.
+
+```bash
+git status
+git diff
+git add quickstart.md
+git commit -m "Update documentation quickstart"
+git push
+```
+
+When the change reaches the production branch connected to Velu, the hosted
+service builds and deploys it.
+
+</Step>
+
+<Step title="Verify the deployment">
+
+Return to the Velu dashboard and monitor the deployment. When it completes,
+open the published documentation and confirm that the updated introduction is
+visible.
+
+</Step>
+
+</Steps>
+
+<Callout type="check">
+
+You now have a connected documentation project, a working local preview, and a
+published change managed through Git.
+
+</Callout>
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Read <a href="/getting-started/how-velu-works">How Velu works</a> to compare the two workflows.</li>
+  <li>Review <a href="/essentials/docs-site-structure">Docs site structure</a> if you chose docs-as-code.</li>
+  <li>Learn how to <a href="/getting-started/deployment">publish documentation</a> from the dashboard or Git.</li>
+</ol>

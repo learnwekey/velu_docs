@@ -1,0 +1,195 @@
+---
+title: Publish documentation
+description: Publish documentation from the dashboard or a connected Git repository.
+---
+
+You can publish directly from the Velu dashboard or deploy from a connected Git
+repository. Choose the dashboard for browser-based authoring without Git.
+Choose Git for docs-as-code, automation, or self-updating documentation.
+
+<Columns cols={2}>
+
+<Card title="Publish from the dashboard" icon="panels-top-left" cta={{ label: "Use the dashboard", href: "/getting-started/deployment#publish-from-the-dashboard-editor" }}>
+Review and publish in the web editor. A Git repository is not required.
+</Card>
+
+<Card title="Deploy from Git" icon="git-branch" cta={{ label: "Use Git", href: "/getting-started/deployment#deploy-from-git" }}>
+Push an approved change to the connected production branch. A Git repository
+is required.
+</Card>
+
+</Columns>
+
+## Before you begin
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Choose the dashboard editor or Git deployment workflow.</li>
+  <li>Preview the changed page and confirm its content, navigation, and links.</li>
+  <li>If publishing from the dashboard, confirm that you can edit and publish the project.</li>
+  <li>If deploying from Git, confirm that the repository is connected to the correct Velu project, you know its production branch, you can push or merge to that branch, and <code>velu lint</code> passes.</li>
+</ol>
+
+## Publish from the dashboard editor
+
+<Steps>
+
+<Step title="Review the change">
+Open the changed page in the web editor and review its rendered preview.
+</Step>
+
+<Step title="Publish the documentation">
+Use the editor's publish action. A Git repository is not required.
+</Step>
+
+<Step title="Monitor publication">
+Monitor the publication status in the dashboard. If it fails, use the reported
+error to correct the content and publish again.
+</Step>
+
+<Step title="Verify the published site">
+Open the published documentation and confirm the changed page, navigation,
+code examples, and links.
+</Step>
+
+</Steps>
+
+## Deploy from Git
+
+Use this workflow only after connecting a documentation repository to the Velu
+project.
+
+<Steps>
+
+<Step title="Review the change">
+
+Inspect the files and diff before committing:
+
+```bash
+git status
+git diff
+```
+
+</Step>
+
+<Step title="Lint the project">
+
+```bash
+velu lint
+```
+
+Resolve errors before continuing.
+
+</Step>
+
+<Step title="Commit the documentation">
+
+Stage only the intended files and use a specific commit message:
+
+```bash
+git add quickstart.md velu.json
+git commit -m "Document the onboarding workflow"
+```
+
+</Step>
+
+<Step title="Push or merge the change">
+
+Push the branch and follow your team's review process. Velu starts a production
+deployment when the approved change reaches the configured production branch.
+
+```bash
+git push
+```
+
+</Step>
+
+<Step title="Monitor the deployment">
+Open the project dashboard and monitor the deployment until it completes. If
+the build fails, use the reported error to correct the repository and push a
+new commit.
+</Step>
+
+<Step title="Verify the published site">
+Open the deployed documentation and confirm the changed page, navigation, code
+examples, and links.
+</Step>
+
+</Steps>
+
+<Callout type="tip">
+
+Run `velu build` when you need to inspect or deploy the generated static site.
+The output is written to `.velu-out/out`.
+
+</Callout>
+
+## Build a static site
+
+Run the production build from the documentation directory:
+
+```bash
+velu build
+```
+
+Deploy the contents of `.velu-out/out` to a static hosting provider such as
+Netlify, Vercel, or GitHub Pages.
+
+## Review changes with preview deployments
+
+For docs-as-code, use a preview deployment when a change needs stakeholder or
+pull-request review before production. Verify the complete site in the preview,
+including navigation and cross-page links, rather than reviewing only the
+edited page.
+
+## Troubleshoot publishing
+
+<AccordionGroup>
+
+<Accordion title="The latest commit was not deployed">
+
+Confirm that the commit reached the production branch connected to the Velu
+project. If it is on another branch, merge it through your normal review
+workflow.
+
+</Accordion>
+
+<Accordion title="A dashboard change was not published">
+
+Check the publication status in the dashboard. Confirm that the editor saved
+the latest change and that your account can publish the project, then retry the
+publish action.
+
+</Accordion>
+
+<Accordion title="The build reports a content error">
+
+Pull the affected commit locally, run `velu lint`, and start `velu run` to
+reproduce the issue. Correct it and push a new commit.
+
+</Accordion>
+
+<Accordion title="A published page is missing">
+
+For a dashboard publication, confirm that the page was included in the publish
+action. For a Git deployment, confirm that the page file was committed and its
+path appears in `velu.json` navigation without the `.md` or `.mdx` extension.
+
+</Accordion>
+
+<Accordion title="The deployed page is outdated">
+
+Check the publication or deployment status in the dashboard. For a Git
+deployment, also confirm the commit identifier. Verify that you are viewing the
+expected documentation domain and refresh after publication completes.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Configure <a href="/essentials/settings">site settings</a>.</li>
+  <li>Organize <a href="/essentials/navigation">navigation</a>.</li>
+  <li>Learn how to <a href="/essentials/markdown">write Markdown content</a>.</li>
+</ol>
