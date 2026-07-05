@@ -1,0 +1,159 @@
+---
+title: Configuration overview
+description: Configure site identity, appearance, navigation, API behavior, and AI actions in velu.json.
+---
+
+`velu.json` is the site-wide configuration file at the project root. Velu
+reads it for local preview, validation, and hosted publishing.
+
+<Callout type="tip">
+
+Replace `YourCompany`, `yourcompany`, and `yourdomain.com` in the examples with
+your own organization name, account, and domain.
+
+</Callout>
+
+## Start with the required fields
+
+In Velu 0.2.27, `name` is the only required field. Add `$schema` for editor
+validation and autocomplete:
+
+```json
+{
+  "$schema": "https://veludocs.com/velu.schema.json",
+  "name": "YourCompany Documentation"
+}
+```
+
+`velu.json` must be strict JSON. Comments and trailing commas are invalid.
+
+## Choose the relevant configuration
+
+| Area | Fields | Purpose |
+| --- | --- | --- |
+| Identity | `name` | Sets the site name and fallback text wordmark. |
+| Appearance | `colors`, `font`, `favicon`, `logo`, `thumbnails` | Applies branding and configures generated social images. |
+| Site links | `navbar`, `footer` | Adds global header actions, footer columns, and social links. |
+| Structure | `navigation` | Defines products, versions, languages, tabs, anchors, groups, and pages. |
+| API documentation | `api` | Sets playground, proxy, server, and request-sample defaults. |
+| AI actions | `contextual`, `assistant` | Configures page actions and the published Ask AI experience. |
+| Discovery | `seo` | Controls build-time metadata and indexing behavior. |
+
+Use the focused guides for complete field behavior. Do not add a field that is
+absent from the schema; an unrecognized key does not enable a hosted feature.
+
+## Build a complete site configuration
+
+This example combines the supported site-wide fields used in the Customize
+section:
+
+```json
+{
+  "$schema": "https://veludocs.com/velu.schema.json",
+  "name": "YourCompany Documentation",
+  "colors": {
+    "primary": "#2563eb",
+    "light": "#1d4ed8",
+    "dark": "#60a5fa"
+  },
+  "font": {
+    "family": "Inter"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/images/logo-dark-text.svg",
+    "dark": "/images/logo-light-text.svg",
+    "href": "https://yourdomain.com"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Status",
+        "href": "https://status.yourdomain.com",
+        "icon": "activity"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Open dashboard",
+      "href": "https://app.yourdomain.com"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/yourcompany"
+    }
+  },
+  "seo": {
+    "indexing": "navigable",
+    "metatags": {
+      "google-site-verification": "verification-token"
+    }
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get started",
+        "pages": ["index", "quickstart"]
+      }
+    ]
+  }
+}
+```
+
+## Understand defaults
+
+When optional fields are absent, Velu applies these relevant defaults:
+
+- Accent color: `#dc143c`.
+- Font family: `Google Sans Flex`.
+- Logo: the project `name` as a text wordmark.
+- Light and dark accent colors: `colors.primary`.
+- Contextual actions: `copy`, `view`, `chatgpt`, and `claude`.
+- Contextual action placement: `header`.
+- SEO indexing: `navigable`.
+- API playground proxy: enabled.
+
+## Validate configuration changes
+
+Run:
+
+```bash
+velu validate
+```
+
+Velu checks JSON syntax, required fields and types, navigation paths, language
+codes, local favicon and logo files, and obvious CSS color errors. Missing or
+invalid required values fail validation. Unknown fields and suspicious color
+values are warnings, so they are reported without changing the successful exit
+code.
+
+The validator does not prove that an external URL works, a Google Font exists,
+or build-time SEO output is correct. Keep `velu dev` open for rendering checks
+and verify build-only behavior on a published preview.
+
+## Next steps
+
+<Columns cols={2}>
+
+<Card title="Appearance" icon="palette" cta={{ label: "Apply branding", href: "/essentials/appearance" }}>
+Configure colors, fonts, logos, and favicons.
+</Card>
+
+<Card title="Header and footer" icon="panel-top" cta={{ label: "Add global links", href: "/essentials/header-footer" }}>
+Add header actions, footer columns, and social profiles.
+</Card>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="SEO and social sharing" icon="search-check" cta={{ label: "Configure discovery", href: "/essentials/seo-social" }}>
+Configure metadata, indexing, social images, and crawler files.
+</Card>
+
+<Card title="Navigation" icon="route" cta={{ label: "Organize pages", href: "/essentials/navigation" }}>
+Define the hierarchy and URLs of documentation pages.
+</Card>
+
+</Columns>

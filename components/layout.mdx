@@ -1,0 +1,163 @@
+---
+title: Layout and navigation components
+description: Structure destinations, parallel content, procedures, and file trees with responsive components.
+---
+
+Use layout components when they make relationships clearer than ordinary
+prose or lists. All layouts stack when their content no longer fits.
+
+## Card and CardGroup
+
+Cards present a small set of destinations or parallel choices:
+
+```mdx
+<CardGroup>
+  <Card
+    title="Quickstart"
+    icon="rocket"
+    cta={{ label: "Get started", href: "/quickstart" }}
+  >
+    Publish your first documentation change.
+  </Card>
+  <Card
+    title="Configuration"
+    icon="settings"
+    cta={{ label: "Configure Velu", href: "/essentials/configuration" }}
+  >
+    Review supported `velu.json` fields.
+  </Card>
+</CardGroup>
+```
+
+<Field name="Card.title" type="node">
+Card heading.
+</Field>
+
+<Field name="Card.icon" type="string">
+Lucide icon ID. Image cards do not show the icon.
+</Field>
+
+<Field name="Card.horizontal" type="boolean" default="false">
+Places the icon beside the text instead of above it.
+</Field>
+
+<Field name="Card.img" type="string">
+Image URL displayed above the card body.
+</Field>
+
+<Field name="Card.imgAlt" type="string" default="">
+Alternative text for `img`.
+</Field>
+
+<Field name="Card.cta" type="object">
+Single interactive link with required `label` and `href` values. A card without
+`cta` is not clickable.
+</Field>
+
+<Field name="CardGroup.limit" type="number" default="3">
+Maximum cards in one row.
+</Field>
+
+<Field name="CardGroup.min" type="CSS length" default="18ch">
+Minimum width per card before the group stacks.
+</Field>
+
+<Field name="CardGroup.space" type="CSS length" default="var(--s0)">
+Gap between cards.
+</Field>
+
+## Columns
+
+`Columns` arranges heterogeneous content in parallel:
+
+```mdx
+<Columns cols={2}>
+  <Callout type="info">Dashboard workflow</Callout>
+  <Callout type="info">Docs-as-code workflow</Callout>
+</Columns>
+```
+
+<Field name="cols" type="number" default="2">
+Maximum items per row. More children than `cols` force a vertical stack.
+</Field>
+
+<Field name="min" type="CSS length" default="18ch">
+Minimum width for each column before all items stack.
+</Field>
+
+<Field name="space" type="CSS length" default="var(--s1)">
+Gap between items.
+</Field>
+
+Do not use columns for sequential instructions or long passages that become
+difficult to scan on narrow screens.
+
+## Steps and Step
+
+Use steps for dependent actions:
+
+```mdx
+<Steps>
+  <Step title="Create the page">
+    Add `guides/setup.mdx`.
+  </Step>
+  <Step title="Add navigation">
+    Add `guides/setup` to `velu.json`.
+  </Step>
+  <Step title="Validate the project">
+    Run `velu validate`.
+  </Step>
+</Steps>
+```
+
+`Steps` assigns one-based numbers to direct `Step` children. `Step.title`
+provides the action heading. `Step.index` can override the assigned marker but
+should normally be omitted.
+
+Give each step one primary action, put prerequisites before the procedure, and
+include a verification step or result.
+
+## Tree, Folder, and File
+
+Use a tree for meaningful directory or object hierarchies:
+
+```mdx
+<Tree>
+  <File name="velu.json" />
+  <File name="index.mdx" />
+  <Folder name="guides" defaultOpen>
+    <File name="setup.mdx" />
+    <File name="deployment.mdx" />
+  </Folder>
+</Tree>
+```
+
+<Field name="Folder.name" type="node">
+Displayed folder label.
+</Field>
+
+<Field name="Folder.icon" type="string | node" default="folder">
+Lucide icon ID or custom node.
+</Field>
+
+<Field name="Folder.defaultOpen" type="boolean" default="true">
+Controls the initial disclosure state.
+</Field>
+
+<Field name="File.name" type="node">
+Displayed file label.
+</Field>
+
+<Field name="File.icon" type="string | node" default="file">
+Lucide icon ID or custom node.
+</Field>
+
+Keep trees focused on paths discussed by the page; omit unrelated generated
+files.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Present source examples with <a href="/components/code-ai">code and AI components</a>.</li>
+  <li>Use <a href="/components/emphasis">callouts and accordions</a> inside layouts when appropriate.</li>
+</ol>

@@ -1,7 +1,6 @@
 {
   "$schema": "https://veludocs.com/velu.schema.json",
   "name": "Velu Documentation",
-  "url": "https://docs.getvelu.com",
   "colors": {
     "primary": "#dc143c"
   },
@@ -18,13 +17,6 @@
     ]
   },
   "navigation": {
-    "anchors": [
-      {
-        "anchor": "Documentation",
-        "icon": "book-open",
-        "href": "https://docs.getvelu.com"
-      }
-    ],
     "tabs": [
       {
         "tab": "Guides",
@@ -35,41 +27,69 @@
             "pages": [
               "index",
               "quickstart",
-              "getting-started/how-velu-works"
+              "getting-started/ai-native",
+              {
+                "group": "Using CLI",
+                "pages": [
+                  "getting-started/install-velu",
+                  "getting-started/local-preview",
+                  "getting-started/validate"
+                ]
+              }
             ]
           },
           {
-            "group": "Develop Locally",
-            "icon": "terminal",
+            "group": "Customize",
+            "icon": "sliders-horizontal",
             "pages": [
-              "getting-started/install-velu",
-              "getting-started/local-preview",
-              "getting-started/lint"
+              "essentials/configuration",
+              "essentials/docs-site-structure",
+              "essentials/appearance",
+              "essentials/header-footer",
+              "essentials/seo-social"
             ]
           },
           {
-            "group": "Publish",
-            "icon": "cloud-upload",
+            "group": "Organize",
+            "icon": "route",
             "pages": [
+              "essentials/navigation",
+              "essentials/navigation-switchers"
+            ]
+          },
+          {
+            "group": "Create Content",
+            "icon": "pen-line",
+            "pages": [
+              "essentials/content-overview",
+              "essentials/pages",
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-content",
+              {
+                "group": "Components",
+                "pages": [
+                  "components/overview",
+                  "components/emphasis",
+                  "components/layout",
+                  "components/code-ai",
+                  "components/media-updates"
+                ]
+              },
               "getting-started/deployment"
             ]
           },
           {
-            "group": "Customization",
-            "icon": "sliders-horizontal",
+            "group": "AI-native Features",
+            "icon": "sparkles",
             "pages": [
-              "essentials/docs-site-structure",
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing Content",
-            "icon": "pen-line",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images"
+              "ai-native/ask-velu",
+              "ai-native/search",
+              "ai-native/contextual-actions",
+              "ai-native/llms",
+              "ai-native/mcp",
+              "ai-native/page-feedback"
             ]
           },
           {
@@ -90,7 +110,9 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/openapi",
+              "api-reference/api-playground"
             ]
           }
         ]

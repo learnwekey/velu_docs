@@ -1,0 +1,44 @@
+---
+title: MCP integration
+description: How Velu exposes an MCP endpoint for compatible clients.
+---
+
+Velu exposes a hosted MCP endpoint so compatible clients can connect to the
+documentation as a tool source. The contextual action menu provides the install
+and connect paths for supported clients.
+
+<Steps>
+  <Step title="Copy the endpoint">
+    The hosted MCP URL lives at `/mcp` on the docs origin.
+  </Step>
+  <Step title="Bridge to your client">
+    Velu can copy an `mcp-remote` command that bridges the HTTP endpoint to
+    stdio.
+  </Step>
+  <Step title="Install in an MCP client">
+    Cursor and VS Code can open their respective install flows from the context
+    menu.
+  </Step>
+</Steps>
+
+<Field name="mcp endpoint" type="URL">
+https://docs.yourdomain.com/mcp
+</Field>
+
+<Field name="bridge command" type="string">
+npx mcp-remote https://docs.yourdomain.com/mcp
+</Field>
+
+## What to document in setup guides
+
+When you write a client-specific MCP guide, include:
+
+- The docs site origin.
+- The endpoint URL.
+- The exact client command or install link.
+- Any authentication or tenant requirements.
+
+<Accordion title="What this page does not cover">
+  Client-specific permissions, workspace policies, and host-side auth still need
+  a product walkthrough before they can be documented as fixed behavior.
+</Accordion>

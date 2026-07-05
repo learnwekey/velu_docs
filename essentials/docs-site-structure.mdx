@@ -1,67 +1,58 @@
 ---
 title: Docs site structure
-description: Learn how a Velu docs site organizes pages, configuration, assets, and API specifications.
+description: Organize Velu configuration, MDX pages, assets, and API specifications in one project.
 ---
 
-A Velu docs site is a directory containing `velu.json`, Markdown or MDX pages,
-and any assets or API specifications used by the site. In a docs-as-code
-workflow, Git tracks these files and Velu uses them to render the
-documentation.
+A Velu docs-as-code project keeps configuration, authored content, and
+project-owned assets under one project root. Run Velu commands from the
+directory that contains `velu.json`.
 
-## Typical project
+## Use a predictable project layout
 
 <Tree>
   <File name="velu.json" />
   <File name="favicon.svg" />
-  <File name="quickstart.md" />
-  <File name="installation.md" />
+  <File name="index.mdx" />
+  <File name="quickstart.mdx" />
   <File name="openapi.json" />
   <Folder name="guides" defaultOpen>
-    <File name="configuration.md" />
-    <File name="deployment.md" />
+    <File name="configuration.mdx" />
+    <File name="deployment.mdx" />
   </Folder>
   <Folder name="images" defaultOpen>
     <File name="dashboard.png" />
+    <File name="logo.svg" />
   </Folder>
 </Tree>
 
-## Core files
+Directory names are flexible. Navigation and asset references must match the
+actual project-relative paths.
+
+## Understand the project files
 
 <Field name="velu.json" type="JSON" required>
-Controls the project name, branding, navigation, API documentation, contextual
-actions, and other site-wide behavior.
+Defines the project name, appearance, navigation, API behavior, contextual
+actions, and other site-wide settings.
 </Field>
 
-<Field name="*.md" type="Markdown" required>
-Contains page headings, prose, code examples, images, and links. Use MDX when a
-page needs built-in Velu components.
+<Field name="*.mdx" type="MDX" required>
+Contains page frontmatter, Markdown prose, code examples, images, and built-in
+Velu components. Navigation resolves authored pages to `.mdx` files.
 </Field>
 
-<Field name="openapi.json" type="OpenAPI">
-Defines an API reference when the project uses generated API documentation.
-OpenAPI specifications can also use YAML or a remote URL.
+<Field name="openapi.json or openapi.yaml" type="OpenAPI">
+Defines generated API pages when a navigation tab or group references the
+specification. A specification can also be loaded from a remote URL.
 </Field>
 
 <Field name="images/" type="directory">
-Stores screenshots, diagrams, and other project assets. You may choose another
-directory name as long as page references match it.
+Stores screenshots, diagrams, logos, favicons, and social-image backgrounds.
+The directory name is a convention rather than a required Velu path.
 </Field>
 
-## Page titles
+## Map source files to URLs
 
-Start a Markdown page with a descriptive level-one heading:
-
-```md
-# Configure authentication
-```
-
-The heading identifies the page to readers, search, and AI tools. Keep it
-specific to the task or subject covered by the page.
-
-## Map files to URLs
-
-Page paths in `velu.json` are relative to the project root and omit the `.md`
-extension:
+Page references are relative to the project root and omit `.mdx`:
 
 ```json
 {
@@ -70,24 +61,32 @@ extension:
 }
 ```
 
-This configuration maps:
+| Source file | Page reference | Default URL |
+| --- | --- | --- |
+| `index.mdx` | `index` | `/` |
+| `quickstart.mdx` | `quickstart` | `/quickstart` |
+| `guides/configuration.mdx` | `guides/configuration` | `/guides/configuration` |
+| `guides/index.mdx` | `guides/index` | `/guides` |
 
-| File | URL |
-| --- | --- |
-| `quickstart.md` | `/quickstart` |
-| `guides/configuration.md` | `/guides/configuration` |
-| `guides/deployment.md` | `/guides/deployment` |
+Products, versions, and languages can add URL prefixes. The default value on
+each switchable navigation axis remains unprefixed.
 
-<Callout type="warning">
+## Keep generated state out of source control
 
-Add a page to `navigation` before expecting it to render or be validated. A
-misspelled path or missing file causes `velu lint` to report an error.
+`velu dev` stores its dependency cache and version marker under `.velu/` in
+the project. This directory is generated state, not authored documentation.
+Add it to `.gitignore`:
 
-</Callout>
+```gitignore
+.velu/
+```
 
-## Use built-in components
+Commit `velu.json`, MDX pages, OpenAPI specifications, and project-owned
+assets. Do not edit files inside `.velu/`.
 
-Velu components are available directly in MDX. Do not import them:
+## Use components without imports
+
+Velu components are registered globally in MDX:
 
 ```mdx
 <Callout type="tip">
@@ -95,27 +94,20 @@ Velu components are available directly in MDX. Do not import them:
 </Callout>
 ```
 
-Component names and properties are case-sensitive. Run `velu lint` after
-adding or changing component markup.
+Component names and properties are case-sensitive. Do not import a built-in
+component into an authored page.
 
-## Create a new local project
+## Verify the project structure
 
-Use `velu init` when you need a standalone starter project:
-
-```bash
-mkdir your-docs-repo
-cd your-docs-repo
-velu init
-velu run
-```
-
-The command scaffolds the current directory and refuses to replace an existing
-Velu configuration.
+1. Run `velu dev` from the directory containing `velu.json`.
+2. Open every new page through the sidebar and confirm its URL.
+3. Confirm referenced local logos, favicons, images, and specifications load.
+4. Run `velu validate` and resolve missing page or configuration errors.
 
 ## Next steps
 
 <ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
-  <li><a href="/getting-started/install-velu">Install Velu</a>.</li>
-  <li>Learn how to <a href="/getting-started/local-preview">preview locally</a>.</li>
+  <li>Review the <a href="/essentials/configuration">configuration overview</a>.</li>
+  <li>Create <a href="/essentials/pages">pages and frontmatter</a>.</li>
   <li>Configure <a href="/essentials/navigation">navigation</a>.</li>
 </ol>

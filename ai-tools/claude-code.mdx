@@ -3,7 +3,7 @@ title: Claude Code
 description: Work on your docs with Claude Code.
 ---
 
-Claude Code can read your `velu.json` and Markdown files to draft pages,
+Claude Code can read your `velu.json` and MDX files to draft pages,
 restructure navigation, and keep content consistent.
 
 <Callout type="tip">
@@ -18,9 +18,10 @@ restructure navigation, and keep content consistent.
     Tell Claude the title and what it should cover.
   </Step>
   <Step title="Review the draft">
-    Claude writes the Markdown page and adds it to `navigation`.
+    Claude writes the MDX page and adds it to `navigation`.
   </Step>
   <Step title="Preview">
-    `velu run` reloads so you can read it in place.
+    `velu dev` reloads so you can read it in place. Run `velu validate` before
+    accepting the change.
   </Step>
 </Steps>

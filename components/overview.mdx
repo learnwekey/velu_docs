@@ -1,0 +1,101 @@
+---
+title: Components overview
+description: Choose supported Velu components and understand which API elements are intended for authored MDX.
+---
+
+Velu components add structured presentation and interaction to `.mdx` pages.
+They are registered globally and do not require imports.
+
+## Use a component
+
+```mdx
+<Callout type="tip">
+  Run `velu validate` before publishing.
+</Callout>
+```
+
+Component names and properties are case-sensitive. Capitalized tags that are
+not built in are reported by `velu validate`.
+
+## Author-facing components
+
+| Purpose | Components | Reference |
+| --- | --- | --- |
+| Emphasis and disclosure | `Callout`, `Accordion`, `AccordionGroup` | [Callouts and accordions](/components/emphasis) |
+| Layout and procedures | `Card`, `CardGroup`, `Columns`, `Steps`, `Step`, `Tree`, `Folder`, `File` | [Layout and navigation](/components/layout) |
+| Code and AI prompts | `CodeBlock`, `CodeGroup`, `Prompt` | [Code and AI](/components/code-ai) |
+| Media and changelogs | `Image`, `Update` | [Media and updates](/components/media-updates) |
+| Definitions and endpoint labels | `Field`, `MethodBadge`, `ApiPath` | [Reference elements](/components/reference) |
+
+## Generated API primitives
+
+The MDX registry also contains `TryItBar`, `ApiField`, `ApiClient`, and
+`ApiSidebar`. These components compose Velu's generated API experience and
+include callback- or runtime-oriented properties. They are not part of the
+0.2.25 public authoring contract documented in Phase 2.
+
+Use an OpenAPI specification to generate interactive API pages. Use
+`MethodBadge` and `ApiPath` only when a manual page needs an inline endpoint
+label.
+
+## Pass properties correctly
+
+Use quoted text for string properties:
+
+```mdx
+<Callout type="warning" icon="triangle-alert">
+  Review this requirement.
+</Callout>
+```
+
+Use braces for booleans, numbers, arrays, and objects:
+
+```mdx
+<Columns cols={3}>
+  {/* children */}
+</Columns>
+
+<Card cta={{ label: "Read more", href: "/quickstart" }}>
+  Open the quickstart.
+</Card>
+```
+
+Boolean properties can use shorthand:
+
+```mdx
+<Accordion title="Details" defaultOpen>
+  This item starts expanded.
+</Accordion>
+```
+
+## Understand validation
+
+`velu validate` checks component spelling on navigated pages. It also checks
+literal constrained values for `Callout.type`, `MethodBadge.method`, and
+`ApiPath.method`, and recognizes `Image.src` as required.
+
+Expression-based values can require render-time validation. Keep `velu dev`
+running and open every page that adds or changes a component.
+
+## Use components semantically
+
+- Keep required instructions visible rather than hiding them in accordions.
+- Add an explicit `cta` when a card should navigate; the card itself is static.
+- Use `Steps` only when order matters.
+- Use `CodeGroup` for equivalent alternatives, not consecutive commands.
+- Supply alternative text for meaningful images.
+- Use endpoint components only for real HTTP endpoints.
+
+## Next steps
+
+<CardGroup>
+  <Card title="Emphasis" icon="message-square-warning" cta={{ label: "Use callouts", href: "/components/emphasis" }}>
+    Communicate context and optional details.
+  </Card>
+  <Card title="Layout" icon="layout-grid" cta={{ label: "Structure content", href: "/components/layout" }}>
+    Build cards, columns, procedures, and trees.
+  </Card>
+  <Card title="Code and AI" icon="square-code" cta={{ label: "Present examples", href: "/components/code-ai" }}>
+    Show source code and copyable prompts.
+  </Card>
+</CardGroup>

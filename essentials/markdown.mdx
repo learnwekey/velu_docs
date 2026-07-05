@@ -1,25 +1,124 @@
 ---
-title: Markdown
-description: Author with Markdown and components.
+title: Markdown and text
+description: Format prose, headings, links, lists, tables, and inline code in Velu MDX pages.
 ---
 
-Standard Markdown works everywhere: **bold**, _italic_, `inline code`,
-[links](https://veludocs.com), lists, and tables.
+Velu compiles MDX with standard Markdown and GitHub Flavored Markdown. Use
+Markdown for prose and built-in components for structured presentation.
 
-## Components
+## Format text
 
-Drop a component tag right into your Markdown:
+```md
+Use **bold** for strong emphasis and _italics_ for light emphasis.
 
+Use `inline code` for commands, file names, properties, and literal values.
+
+~~Deprecated behavior~~ can be marked with strikethrough when the history is
+important to the reader.
+```
+
+Use emphasis sparingly. Prefer direct sentences and descriptive headings over
+formatting entire paragraphs for attention.
+
+## Add headings
+
+Start page sections at `##` because frontmatter renders the page's `h1`:
+
+```md
+## Configure the client
+
+### Set the base URL
+
+### Add authentication
+```
+
+Velu assigns heading IDs and builds the on-page table of contents from the
+heading hierarchy. Keep levels sequential and do not skip from `##` to `####`.
+
+## Add links
+
+```md
+[Validate your documentation](/getting-started/validate)
+
+[Review component properties](/components/reference#field)
+
+[Visit Velu](https://getvelu.com)
+```
+
+Use text that identifies the destination. For external links, include the
+complete `https://` URL.
+
+## Write lists
+
+Use bullets when order does not matter:
+
+```md
+- Preview the page.
+- Check its links.
+- Review its alternative text.
+```
+
+Use numbers for independent ordered items. Use `Steps` when later actions
+depend on earlier ones and each step needs supporting content.
+
+```md
+1. Create the page.
+2. Add it to navigation.
+3. Run validation.
+```
+
+GitHub-style task lists are supported:
+
+```md
+- [x] Write the page
+- [ ] Review the rendered result
+```
+
+## Add tables
+
+```md
+| Command | Purpose |
+| --- | --- |
+| `velu dev` | Start the local preview. |
+| `velu validate` | Check the project. |
+```
+
+Keep tables small enough to scan on narrow screens. Use `Field` elements when
+each row needs a longer definition or required/default metadata.
+
+## Use blockquotes
+
+```md
+> This behavior applies only to published sites.
+```
+
+Use a `Callout` instead when the content communicates a warning, risk,
+constraint, or success condition.
+
+## Mix Markdown and components
+
+Components can contain Markdown content:
+
+```mdx
 <Callout type="warning">
-  Callouts come in `note`, `tip`, `warning`, and `danger` styles.
+
+Run `velu validate` before publishing.
+
 </Callout>
+```
 
-<Accordion title="How does MDX work?">
-  Each page compiles to a component that renders identically on the
-  server and the client, so there's no flash of unstyled content.
-</Accordion>
+Leave blank lines around block content inside a component. Component names and
+properties are case-sensitive.
 
-## Headings
+## Avoid raw HTML for layout
 
-Use `##` and `###` for sections — they populate the on-page table of
-contents on the right automatically.
+MDX treats HTML-like tags as JSX. Attributes and behavior can differ from
+plain HTML, and custom styling is not part of the content contract. Prefer
+Markdown and documented Velu components for portable pages.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Add <a href="/essentials/code">code examples</a>.</li>
+  <li>Use <a href="/components/overview">built-in components</a>.</li>
+</ol>

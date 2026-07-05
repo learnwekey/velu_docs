@@ -69,8 +69,12 @@ managers, and AI agents without assuming they share the same product context.
 
 - Use the correct language identifier on every fenced block.
 - Make examples runnable when the product permits it.
-- Use `your-login` for a Git account and `your-docs-repo` for a documentation
-  repository. Use environment-variable placeholders for credentials.
+- Use `yourcompany` for organization and account identifiers,
+  `yourcompany-docs` for a documentation repository, and `yourdomain.com`
+  (including subdomains such as `api.yourdomain.com`) for example URLs.
+- At the first placeholder example on a page, tell readers to replace these
+  values with their own organization, repository, and domain.
+- Use environment-variable placeholders for credentials.
 - Never include working credentials, personal paths, or tenant identifiers.
 - Explain where a command must be run.
 - State expected output when it helps readers verify success.
@@ -221,4 +225,4 @@ A section landing page should contain:
 - Are important details visible rather than hidden?
 - Are headings useful in search results and AI excerpts?
 - Do all links resolve?
-- Does `velu lint` pass?
+- Does `velu validate` pass?

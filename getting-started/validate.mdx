@@ -1,0 +1,134 @@
+---
+title: Validate your documentation
+description: Check Velu configuration, navigation, assets, MDX syntax, and component usage.
+---
+
+Run validation before committing documentation changes. `velu validate`
+checks the project without starting the preview server.
+
+## Run validation
+
+From the directory containing `velu.json`, run:
+
+```bash
+velu validate
+```
+
+You can validate another directory explicitly:
+
+```bash
+velu validate path/to/yourcompany-docs
+```
+
+A valid project prints:
+
+```text
+✓ No issues found.
+```
+
+## What validation checks
+
+<CardGroup>
+
+<Card title="Configuration" icon="braces">
+Checks JSON syntax, CSS color values, and project-relative favicon and logo
+paths.
+</Card>
+
+<Card title="Navigation" icon="route">
+Checks the navigation tree, duplicate URLs, ISO 639-1 language codes, and every
+referenced `.mdx` page.
+</Card>
+
+<Card title="Content" icon="file-check">
+Compiles navigated MDX pages and reports invalid frontmatter, MDX syntax,
+unknown built-in components, and constrained literal properties.
+</Card>
+
+</CardGroup>
+
+Literal values are validated for the following constrained properties:
+
+- `Callout.type`
+- `MethodBadge.method`
+- `ApiPath.method`
+- `Image.src`
+
+Set `VELU_DEBUG=1` if you need the full stack trace behind a validation or
+render error while diagnosing a problem.
+
+<Callout type="note">
+
+In the published 0.2.25 package, `velu validate` does not reliably report every
+unknown `velu.json` field. Keep `$schema` configured for editor validation and
+compare configuration fields with the current Velu schema.
+
+</Callout>
+
+<Callout type="warning">
+
+Validation compiles pages referenced by navigation. Add a new page to
+`velu.json` before relying on `velu validate` to check its content.
+
+</Callout>
+
+## Run with npx
+
+If Velu is not installed globally, run:
+
+```bash
+npx @veluai/velu validate .
+```
+
+## Add validation to your workflow
+
+Run `velu validate`:
+
+- After adding, moving, or deleting a page.
+- After changing navigation or site configuration.
+- After adding a built-in component.
+- Before committing or merging documentation updates.
+
+## Resolve common errors
+
+<AccordionGroup>
+
+<Accordion title="A navigation page is missing">
+
+Confirm that the path is relative to the project root, omits `.mdx`, and
+matches the file's capitalization. The current CLI resolves navigated content
+as `.mdx` files.
+
+</Accordion>
+
+<Accordion title="velu.json cannot be parsed">
+
+Check for missing quotes, trailing commas, and unclosed braces. `velu.json`
+must be strict JSON.
+
+</Accordion>
+
+<Accordion title="A component is unknown">
+
+Check the component spelling and capitalization. Built-in components are
+available without imports; an unknown capitalized tag is reported as an
+error.
+
+</Accordion>
+
+<Accordion title="An expression-based property is invalid">
+
+Static validation can inspect literal attributes such as `type="tip"`, but it
+cannot evaluate every JavaScript expression. Open the affected page in the
+local preview to catch render-time property errors.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Return to the <a href="/quickstart">Quickstart</a> to publish the validated change.</li>
+  <li>Review the <a href="/getting-started/deployment">publishing workflow</a>.</li>
+</ol>

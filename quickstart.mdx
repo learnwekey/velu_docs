@@ -11,7 +11,7 @@ fits your work and follow its steps to publish your first documentation change.
 <ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
   <li>Have access to a browser and the email address you want to use for your Velu account.</li>
   <li>Use the dashboard editor if you want to work entirely in the browser. A Git repository is not required.</li>
-  <li>Have a Git documentation repository, permission to clone and push it, Git, npm, and Node.js 20.9 or later if you choose docs-as-code.</li>
+  <li>Have a Git documentation repository, permission to clone and push it, Git, npm, and Node.js 18 or later if you choose docs-as-code.</li>
   <li>Use docs-as-code if you need Git-based automation, self-updating documentation, pull-request review, or AI coding agents with repository context.</li>
 </ol>
 
@@ -130,12 +130,12 @@ your documentation.
 
 <Step title="Clone the repository">
 
-Clone the connected repository and enter its directory. Replace the example
-URL with the URL from your Git provider.
+Clone the connected repository and enter its directory. Replace `yourcompany`
+and the repository name with the values from your Git provider.
 
 ```bash
-git clone https://github.com/your-login/your-docs-repo.git
-cd your-docs-repo
+git clone https://github.com/yourcompany/docs.git yourcompany-docs
+cd yourcompany-docs
 ```
 
 </Step>
@@ -145,18 +145,18 @@ cd your-docs-repo
 Install the public Velu package globally:
 
 ```bash
-npm install --global @aravindc26/velu
+npm install --global @veluai/velu
 ```
 
-If the repository contains neither `docs.json` nor `velu.json`, initialize the
-project from the repository root:
+If you are creating a separate new project instead of using the connected
+repository, scaffold it from the new project's parent directory:
 
 ```bash
-velu init
+velu init yourcompany-docs
 ```
 
-Skip initialization when the connected repository already contains a Velu
-project.
+The target directory must be absent or empty. Skip initialization when the
+connected repository already contains `velu.json`.
 
 </Step>
 
@@ -166,11 +166,11 @@ Run the local site from the directory containing `velu.json`.
 
 
 ```bash
-velu run
+velu dev
 ```
 
 Open the URL printed in the terminal. The default address is
-`http://localhost:4321`.
+`http://localhost:8358`.
 
 </Step>
 
@@ -180,7 +180,7 @@ Open the repository in Codex, Claude Code, or another repository-aware coding
 agent. Give it a focused task such as:
 
 <Prompt title="Improve the quickstart" lines={5}>
-Update quickstart.md so it introduces our product and helps a new reader reach
+Update quickstart.mdx so it introduces our product and helps a new reader reach
 a first successful result. Preserve the existing page structure. Do not modify
 navigation or unrelated pages. Summarize the files you changed when finished.
 </Prompt>
@@ -189,19 +189,19 @@ The local preview reloads after the file is saved.
 
 <Accordion title="Edit the page manually instead">
 
-Open `quickstart.md` and change its introductory paragraph. Save the file and
+Open `quickstart.mdx` and change its introductory paragraph. Save the file and
 return to the preview.
 
 </Accordion>
 
 </Step>
 
-<Step title="Lint the project">
+<Step title="Validate the project">
 
 In another terminal, run:
 
 ```bash
-velu lint
+velu validate
 ```
 
 Resolve reported errors before publishing. A valid project confirms that the
@@ -216,7 +216,7 @@ Review the diff, then commit and push the documentation update.
 ```bash
 git status
 git diff
-git add quickstart.md
+git add quickstart.mdx
 git commit -m "Update documentation quickstart"
 git push
 ```
@@ -246,7 +246,7 @@ published change managed through Git.
 ## Next steps
 
 <ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
-  <li>Read <a href="/getting-started/how-velu-works">How Velu works</a> to compare the two workflows.</li>
+  <li>Explore Velu's <a href="/getting-started/ai-native">AI-native features</a>.</li>
   <li>Review <a href="/essentials/docs-site-structure">Docs site structure</a> if you chose docs-as-code.</li>
   <li>Learn how to <a href="/getting-started/deployment">publish documentation</a> from the dashboard or Git.</li>
 </ol>

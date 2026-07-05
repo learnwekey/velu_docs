@@ -1,0 +1,81 @@
+---
+title: Create content
+description: Understand the files, syntax, and validation workflow used to author Velu pages.
+---
+
+Velu pages are `.mdx` files. MDX combines Markdown syntax with Velu's built-in
+components, so a page can use ordinary prose for most content and structured
+components where presentation or behavior matters.
+
+## Authoring workflow
+
+<Steps>
+
+<Step title="Create an MDX file">
+Add the page under the project root. Use directories to keep related pages
+together, such as `guides/authentication.mdx`.
+</Step>
+
+<Step title="Add frontmatter">
+Define a unique `title` and `description` at the top of the file.
+</Step>
+
+<Step title="Add the page to navigation">
+Reference the extensionless path, such as `guides/authentication`, from
+`navigation` in `velu.json`.
+</Step>
+
+<Step title="Preview and validate">
+Run `velu dev` while writing, then run `velu validate` before committing.
+</Step>
+
+</Steps>
+
+## Choose the right syntax
+
+| Content | Recommended syntax |
+| --- | --- |
+| Paragraphs, headings, links, lists, and tables | Markdown |
+| Commands and source examples | Fenced code blocks or `CodeBlock` |
+| Warnings and important context | `Callout` |
+| Ordered procedures | `Steps` and `Step` |
+| Parallel destinations or choices | `CardGroup` and `Card` |
+| Optional secondary details | `Accordion` or `AccordionGroup` |
+| Screenshots with captions or chrome | `Image` |
+| Configuration or parameter definitions | `Field` |
+
+Velu components are globally available in MDX. Do not import built-in
+components.
+
+## Keep pages retrievable
+
+- Give every page a specific title and description.
+- Start sections at `##`; the frontmatter title renders as the page's `h1`.
+- Use descriptive headings that remain meaningful in search results.
+- Keep prerequisites and required actions outside accordions.
+- Use explicit link text and meaningful image alternative text.
+- Prefer one primary task or subject per page.
+
+## Current content boundaries
+
+The 0.2.25 CLI resolves page entries to `.mdx` files. Markdown syntax works
+inside those files, but a navigated `guide.md` file does not satisfy a page
+entry. Rename it to `guide.mdx` before adding `guide` to navigation.
+
+Velu does not currently expose a documented include or reusable-snippet
+component. See <a href="/essentials/reusable-content">Reuse content safely</a>
+for supported alternatives.
+
+## Next steps
+
+<CardGroup>
+  <Card title="Pages and frontmatter" icon="file-text" cta={{ label: "Create a page", href: "/essentials/pages" }}>
+    Define page metadata, file paths, and URLs.
+  </Card>
+  <Card title="Markdown" icon="pilcrow" cta={{ label: "Write content", href: "/essentials/markdown" }}>
+    Use supported Markdown and heading patterns.
+  </Card>
+  <Card title="Components" icon="blocks" cta={{ label: "Browse components", href: "/components/overview" }}>
+    Add structured presentation without imports.
+  </Card>
+</CardGroup>

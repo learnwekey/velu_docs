@@ -1,0 +1,77 @@
+---
+title: Ask Velu
+description: How the hosted Velu assistant is wired and what it can answer.
+---
+
+Ask Velu is the built-in documentation assistant for the published site. It is
+wired through the same docs content that powers the rest of the site, so readers
+can ask questions without leaving the page they are on.
+
+The dev preview shows the assistant shell, but the real answer flow only turns on
+when `velu.json` provides an `assistant.apiBase`. When that is configured, Velu
+boots the assistant, checks whether it is enabled for the site, and then streams
+the completed answer back to the chatbot.
+
+<Callout type="note">
+  The assistant uses the published site, not the local preview demo, to decide
+  whether it is enabled and what tenant it belongs to.
+</Callout>
+
+## What it does
+
+<Steps>
+  <Step title="Configure the backend">
+    Add `assistant.apiBase` in `velu.json` so the published site knows which
+    API to call.
+  </Step>
+  <Step title="Publish the site">
+    Velu boots the assistant only in the published site, where the tenant is
+    resolved from the host.
+  </Step>
+  <Step title="Ask a question">
+    Readers type a question from any page and receive a conversational answer
+    grounded in the docs content.
+  </Step>
+</Steps>
+
+## Configuration
+
+The assistant block in `velu.json` looks like this:
+
+```json
+{
+  "assistant": {
+    "apiBase": "https://api.yourdomain.com",
+    "host": "docs.yourdomain.com",
+    "suggestions": [
+      "How do I write a page?",
+      "What counts as a valid navigation entry?"
+    ]
+  }
+}
+```
+
+Use your real API base and host. The `suggestions` array is optional, and Velu
+keeps only the first six entries.
+
+<Field name="assistant.apiBase" type="string" required>
+The published docs-assistant API base.
+</Field>
+
+<Field name="assistant.host" type="string">
+Optional override for the tenant-resolution host.
+</Field>
+
+<Field name="assistant.suggestions" type="string[]" default="[]">
+Optional starter questions shown in the assistant UI.
+</Field>
+
+## When to use it
+
+Use Ask Velu when readers need page-level help from the published docs without
+searching manually. It is the conversational front door for the site.
+
+<Accordion title="What this page does not cover">
+  The hosted admin workflow, billing controls, and other product-side
+  operational details still need separate evidence before we document them.
+</Accordion>

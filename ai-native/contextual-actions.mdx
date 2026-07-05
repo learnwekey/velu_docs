@@ -1,0 +1,51 @@
+---
+title: Contextual actions
+description: The per-page action menu for AI, IDE, and agent workflows.
+---
+
+Every page can expose a contextual action menu. That menu is the strip of page
+actions at the top of the article: copy the page, view the Markdown, ask an AI
+tool, or connect the page to an IDE or agent client.
+
+The available actions are controlled through `velu.json` under `contextual`.
+When no custom list is provided, Velu uses the default copy/view/ChatGPT/Claude
+set.
+
+<Tree>
+  <Folder name="Page actions" icon="mouse-pointer-click">
+    <File name="Copy page" icon="copy" />
+    <File name="View Markdown" icon="file-text" />
+    <File name="Ask AI" icon="sparkles" />
+    <Folder name="Agent tools" icon="terminal">
+      <File name="MCP" icon="terminal" />
+      <File name="Cursor" icon="mouse-pointer-click" />
+      <File name="VS Code" icon="terminal" />
+    </Folder>
+  </Folder>
+</Tree>
+
+## Configuration
+
+```json
+{
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  }
+}
+```
+
+Use the built-in action names for the supported shortcuts. Custom menu items can
+also be added with `title`, `description`, and `href`.
+
+<Accordion title="Custom items">
+  Custom items let you add a title, description, href, and optional icon when a
+  built-in action is not the right fit.
+</Accordion>

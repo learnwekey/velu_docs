@@ -1,0 +1,108 @@
+---
+title: Callouts and accordions
+description: Emphasize important information and disclose optional details with accessible components.
+---
+
+Use `Callout` for information that materially changes success, risk, or
+understanding. Use accordions for optional details that a reader can skip.
+
+## Callout
+
+````mdx
+<Callout type="warning">
+  Rotating this key immediately invalidates the previous key.
+</Callout>
+````
+
+<Field name="type" type="string" default="note">
+Case-sensitive semantic style: `note`, `warning`, `info`, `tip`, `check`,
+`danger`, or `callout`.
+</Field>
+
+<Field name="icon" type="string | node">
+Lucide icon ID or custom node. Defaults to the icon for the selected type.
+</Field>
+
+<Field name="stroke" type="CSS color">
+Overrides the type's border and icon color.
+</Field>
+
+<Field name="bg" type="CSS color">
+Overrides the type's background color.
+</Field>
+
+### Choose a type
+
+| Type | Use |
+| --- | --- |
+| `note` | A constraint or behavior affecting the current task. |
+| `info` | Context needed to understand surrounding content. |
+| `tip` | An optional improvement or shortcut. |
+| `check` | A success state or verification result. |
+| `warning` | A likely failure or recoverable risk. |
+| `danger` | Security, data-loss, or difficult-rollback risk. |
+| `callout` | General emphasis that does not fit another semantic type. |
+
+Keep a required action in the main procedure even when a callout reinforces
+its importance.
+
+## Accordion
+
+`Accordion` uses native disclosure behavior:
+
+````mdx
+<Accordion title="Use a different port">
+
+```bash
+PORT=5180 velu dev
+```
+
+</Accordion>
+````
+
+<Field name="title" type="node" required>
+Visible disclosure label.
+</Field>
+
+<Field name="defaultOpen" type="boolean" default="false">
+Renders the disclosure expanded initially.
+</Field>
+
+Use an accordion for optional explanations, advanced variants, long examples,
+or secondary troubleshooting. Do not hide prerequisites, security warnings,
+or the main successful procedure.
+
+## AccordionGroup
+
+Group adjacent disclosures when they form one set:
+
+```mdx
+<AccordionGroup>
+  <Accordion title="The command is not found">
+    Check that the global npm bin directory is on your path.
+  </Accordion>
+  <Accordion title="The port is already in use">
+    Set `PORT` to another available port.
+  </Accordion>
+</AccordionGroup>
+```
+
+`AccordionGroup` accepts accordion children and optional standard wrapper
+properties. It provides the shared border and dividers; nested accordions drop
+their standalone border treatment.
+
+## Accessibility guidance
+
+- Write a title that identifies what will be revealed.
+- Do not rely on the collapsed state to shorten required content.
+- Avoid placing the only occurrence of a search-critical term inside a closed
+  accordion.
+- Use semantic callout types; color and icon should reinforce the words, not
+  carry meaning alone.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Structure procedures and choices with <a href="/components/layout">layout components</a>.</li>
+  <li>Review the <a href="/components/overview">component selection guide</a>.</li>
+</ol>

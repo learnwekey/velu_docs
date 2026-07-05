@@ -17,26 +17,28 @@ supported product behavior.
   dashboard, backend, API specification, or owning product repository.
 - **Conflict**: published wording and the inspected implementation do not yet
   agree.
+- **Package limitation**: the current published package does not enforce or
+  expose the complete intended behavior.
 - **Fixture only**: sample or test content that must not be described as a Velu
   product API.
 
 ## Public package baseline
 
 - Documentation repository at the current workspace revision.
-- Public package: `@aravindc26/velu` 0.13.24.
-- Node.js requirement: 20.9 or later.
-- Public commands: `velu init`, `velu lint`, `velu run`, and `velu build`.
-- Default local URL: `http://localhost:4321`.
-- Static build output: `.velu-out/out`.
+- Public package: `@veluai/velu` 0.2.25, confirmed against the npm registry on
+  July 4, 2026.
+- Node.js requirement: 18 or later.
+- Public commands: `velu init`, `velu dev`, `velu validate`, and `velu update`.
+- Default local URL: `http://localhost:8358`; set `PORT` to override it.
+- Navigated authored pages resolve to `.mdx` files.
+- The public CLI does not expose a standalone production-build command.
 
-## Package contract decision required
+## Package contract decision
 
-- Phase 1 currently targets `@aravindc26/velu` 0.13.24.
-- The local preview environment currently runs `@veluai/velu` 0.2.25.
-- These are separate packages with different configuration schemas and MDX
-  component contracts; their version numbers are not directly comparable.
-- Phase 2 is on hold until the product owner confirms which package is the
-  authoritative contract for future documentation.
+- The product owner selected `@veluai/velu` as the authoritative package.
+- Phase 1 and Phase 2 target `@veluai/velu` 0.2.25.
+- Claims from `@aravindc26/velu` are not carried forward unless independently
+  supported by the current package or hosted product evidence.
 
 ## Confirmed product decisions
 
@@ -59,11 +61,12 @@ supported product behavior.
 | Capability | Status | Evidence | Documentation action |
 | --- | --- | --- | --- |
 | Scaffold a project | Verified | Public package documentation: `velu init` | Documented in Phase 1. |
-| Run locally | Verified | Public package documentation: `velu run` | Documented with port 4321 and `--port`. |
-| Lint a project | Verified | Public package documentation: `velu lint` | Documented as the pre-publish check. |
-| Build a static site | Verified | Public package documentation: `velu build` | Documented with `.velu-out/out` output. |
-| Node.js requirement | Verified | Public package requires Node.js 20.9+ | Documented in installation and quickstart. |
-| Markdown and MDX content | Verified | Public package resolves Markdown and MDX page files | Document in Phase 2. |
+| Run locally | Verified | Package README and CLI: `velu dev [directory]` | Documented with port 8358 and the `PORT` environment variable. |
+| Validate a project | Verified | CLI: `velu validate [directory]` | Documented as the pre-publish check, including its validation categories. |
+| Detect every unknown configuration field | Package limitation | Installed 0.2.25 accepted the legacy `url` field even though the packaged schema disallows it | Keep `$schema` configured for editor checks and document the validator limitation. |
+| Build a static site from the CLI | Verified as not exposed | Public CLI command registry contains no build command | Removed old static-build guidance; production builds remain a hosted workflow. |
+| Node.js requirement | Verified | Package README requires Node.js 18+ | Documented in installation and quickstart. |
+| MDX content | Verified | Navigation resolution appends `.mdx`; compiler enables Markdown and GitHub Flavored Markdown | Documented in Phase 2; `.md` files are not presented as navigable source pages. |
 | Live reload | Verified | Public package documentation | Documented in Phase 1. |
 | Dashboard publishing without Git | Product confirmed | Product owner confirms the dashboard and web editor are available without connecting a repository | Documented as a standalone quickstart and publishing workflow; verify exact UI labels and states while drafting. |
 | Git-triggered production deployment | Product confirmed | Repository connection and hosted deployment are part of the product flow | Verify supported Git providers, production branch behavior, and deployment states while drafting. |
@@ -73,54 +76,54 @@ supported product behavior.
 
 | Capability | Status | Evidence | Documentation action |
 | --- | --- | --- | --- |
-| Project name | Verified | `velu.json` schema | Document as required. |
-| Primary/light/dark colors | Verified | Schema and runtime | Document inheritance and examples. |
-| Font family | Verified | Schema; Google Fonts runtime loading | Document supported values and network implications. |
-| Favicon | Verified | Schema and dev server | Document project-relative paths and formats. |
-| Light/dark logos | Verified | Schema and runtime | Document string and object forms. |
-| Navbar links and primary CTA | Verified | Schema and runtime | Document supported button and GitHub variants. |
-| Footer links and socials | Verified | Schema and runtime | Document recognized social icons and four-column maximum. |
-| SEO metatags and indexing | Verified | Schema; marked build-only | Document after hosted build behavior is checked. |
-| Open Graph thumbnails | Verified | Schema; marked build-only | Document after hosted rendering is checked. |
+| Project name | Verified | `velu.json` schema | Documented as required. |
+| Primary/light/dark colors | Verified | Schema and runtime | Documented with inheritance and examples. |
+| Font family | Verified | Schema; Google Fonts runtime loading | Documented with network implications. |
+| Favicon | Verified | Schema and dev server | Documented with project-relative paths and formats. |
+| Light/dark logos | Verified | Schema and runtime | Documented in string and object forms. |
+| Navbar links and primary CTA | Verified | Schema and runtime | Documented with button and GitHub variants. |
+| Footer links and socials | Verified | Schema and runtime | Documented with recognized social icons and four-column maximum. |
+| SEO metatags and indexing | Verified | Schema and production build implementation | Documented from code; verify the resulting hosted output before freezing the page. |
+| Open Graph thumbnails | Verified | Schema and production build implementation | Documented from code; verify generated images on a hosted preview before freezing the page. |
 | Contextual menu | Verified | Schema and runtime | Document supported built-in and custom actions. |
 | Ask AI configuration | Partially verified | Schema and runtime support `apiBase`, `host`, and `suggestions` | Verify hosted injection, tenancy, billing, and availability. |
 | Canonical site URL | Needs product evidence | The temporary domain is confirmed, but hosted configuration is outside this repository | Verify where `docs.getvelu.com` is configured. |
-| Custom domain | Product confirmed | Product owner confirms availability; absent from local schema | Verify dashboard flow, DNS requirements, validation, and cutover behavior while drafting. |
-| Custom CSS and JavaScript | Product confirmed | Product owner confirms availability; absent from local schema | Verify configuration, CSP, preview behavior, and limitations while drafting. |
-| Custom 404 page | Product confirmed | Product owner confirms availability; local runtime only proves the default 404 | Verify the hosted customization flow while drafting. |
-| Selectable themes | Product confirmed | Product owner confirms availability; local runtime proves light/dark styling only | Verify the available themes, configuration surface, and migration behavior while drafting. |
+| Custom domain | Product confirmed | Product-owner statement only; absent from the local schema and runtime | Excluded pending the evidence listed in `DOCUMENTATION_EVIDENCE_GAPS.md`. |
+| Custom CSS and JavaScript | Product confirmed | Product-owner statement only; absent from the local schema and runtime | Excluded pending the evidence listed in `DOCUMENTATION_EVIDENCE_GAPS.md`. |
+| Custom 404 page | Product confirmed | Product-owner statement only; local runtime proves only the standard 404 | Excluded pending the evidence listed in `DOCUMENTATION_EVIDENCE_GAPS.md`. |
+| Selectable themes | Product confirmed | Product-owner statement only; local runtime proves only built-in light and dark modes | Excluded pending the evidence listed in `DOCUMENTATION_EVIDENCE_GAPS.md`. |
 
 ## Navigation
 
 | Capability | Status | Evidence | Documentation action |
 | --- | --- | --- | --- |
-| Pages and nested groups | Verified | Schema and navigation implementation | Document paths, nesting, ordering, and group landing pages. |
-| Tabs | Verified | Schema and navigation implementation | Document internal tabs and external `href` tabs. |
-| Anchors | Verified | Schema; anchors require `anchor` and `href` | Document labels, icons, colors, and intended usage. |
-| Products | Verified | Schema and URL prefix implementation | Document default and prefixed products. |
-| Versions | Verified | Schema and URL prefix implementation | Document default and prefixed versions. |
-| Languages | Verified | Schema; ISO 639-1 names are resolved by runtime | Document codes, defaults, and URL behavior. |
-| OpenAPI on tabs and groups | Verified | Schema and OpenAPI navigation generator | Document in Phase 2/3. |
+| Pages and nested groups | Verified | Schema and navigation implementation | Paths, nesting, ordering, and group landing pages are documented; `expanded` is excluded pending runtime evidence. |
+| Tabs | Verified | Schema and navigation implementation | Documented for internal containers and external `href` tabs. |
+| Anchors | Partially verified | Labels, icons, links, and active-scope rendering are implemented; `color` is not rendered | Documented without color; track the mismatch in `DOCUMENTATION_EVIDENCE_GAPS.md`. |
+| Products | Partially verified | Switching, URL prefixes, names, and icons are implemented; `color` is not rendered | Documented without color; track the mismatch in `DOCUMENTATION_EVIDENCE_GAPS.md`. |
+| Versions | Verified | Schema and URL prefix implementation | Documented with URL-change warnings. |
+| Languages | Verified | Schema; ISO 639-1 names are resolved by runtime | Documented with codes, defaults, and URL behavior. |
+| OpenAPI on tabs and groups | Verified | Schema and OpenAPI navigation generator | Navigation behavior documented in Phase 2; full API workflows remain Phase 3. |
 | Dropdown navigation | Verified as unsupported | Schema description explicitly says dropdowns are unsupported | Do not include in public usage guidance. |
-| Hidden pages | Partially verified | SEO supports indexing all pages; direct routing behavior needs a focused test | Verify intended hidden-page workflow before documenting. |
+| Hidden pages | Package limitation | `hidden` changes build-time indexing metadata but does not hide navigation; only navigated MDX pages are loaded | Do not document a hidden-page workflow; track the intended behavior in `DOCUMENTATION_EVIDENCE_GAPS.md`. |
 
 ## Components
 
 | Capability | Status | Evidence | Documentation action |
 | --- | --- | --- | --- |
-| `Callout` | Verified | Runtime and component prop validator | Document seven types and custom icon/color behavior. |
-| `Accordion`, `AccordionGroup` | Verified | Runtime | Document standalone and grouped disclosure. |
-| `Card`, `CardGroup` | Verified | Runtime | Document static cards with explicit CTA links. |
-| `Columns` | Verified | Runtime | Document responsive column behavior. |
-| `Field` | Verified | Runtime | Document configuration and API reference use. |
-| `Prompt` | Verified | Runtime | Document copying, preview lines, and Cursor action. |
-| `Steps`, `Step` | Verified | Runtime | Document dependent procedures. |
-| `Tree`, `Folder`, `File` | Verified | Runtime | Document file and directory structures. |
-| `Update` | Verified | Runtime and TOC extraction | Document changelog usage after its property contract is recorded. |
-| `Image` | Verified | Runtime; `src` is required | Document captions, alt text, window chrome, and frame chrome. |
-| `CodeBlock`, `CodeGroup` | Verified | Runtime | Document titles, filenames, languages, line numbers, highlights, and groups. |
-| `MethodBadge`, `ApiPath` | Verified | Runtime and prop validator | Document endpoint references. |
-| `TryItBar`, `ApiField`, `ApiClient`, `ApiSidebar` | Partially verified | Registered components; primarily used by API runtime | Decide whether these are public author components or internal API primitives. |
+| `Callout` | Verified | Runtime and component prop validator | Documented with seven types and custom icon/color behavior. |
+| `Accordion`, `AccordionGroup` | Verified | Runtime | Documented as standalone and grouped disclosure. |
+| `Card`, `CardGroup` | Verified | Runtime | Documented as static cards with explicit CTA links. |
+| `Columns` | Verified | Runtime | Documented with responsive column behavior. |
+| `Field` | Verified | Runtime | Documented for configuration and API reference use. |
+| `Prompt` | Verified | Runtime | Documented with string-child, preview, copy, and Cursor behavior. |
+| `Steps`, `Step` | Verified | Runtime | Documented for dependent procedures. |
+| `Tree`, `Folder`, `File` | Verified | Runtime | Documented for file and directory structures. |
+| `Update` | Verified | Runtime and TOC extraction | Documented with labels, tags, anchors, and changelog behavior. |
+| `Image` | Verified | Runtime; `src` is required | Documented with captions, alternative text, and chrome variants. |
+| `CodeBlock`, `CodeGroup` | Verified | Runtime | Documented with labels, languages, line numbers, highlights, icons, and groups. |
+| `MethodBadge`, `ApiPath` | Verified | Runtime and prop validator | Documented for real endpoint references. |
+| `TryItBar`, `ApiField`, `ApiClient`, `ApiSidebar` | Verified as internal | Registered components used by generated API runtime | Classified as API-runtime primitives, not public Phase 2 authoring components. |
 | Tabs component inside MDX | Deferred | Deferred by product decision | Skip in the current documentation pass and revisit later. |
 | Mermaid | Deferred | Deferred by product decision | Skip in the current documentation pass and revisit later. |
 
@@ -161,7 +164,8 @@ supported product behavior.
 | `quickstart.mdx` | End-to-end onboarding | Rewritten in Phase 1 with independent dashboard editor and docs-as-code paths. |
 | `development.mdx` | Superseded starter page | Deleted and replaced by focused pages under `getting-started/`. |
 | `getting-started/*.mdx` | First-success guidance | Added in Phase 1 for workflow, structure, installation, preview, validation, and deployment. |
-| `essentials/*.mdx` | Starter examples | Use as raw material; replace with task and reference pages. |
+| `essentials/*.mdx` | Core authoring documentation | Rewritten and expanded in Phase 2. |
+| `components/*.mdx` | Author-facing component reference | Added in Phase 2; API-runtime primitives are explicitly excluded. |
 | `ai-tools/*.mdx` | Generic editor suggestions | Reassess after the first-party AI workflow is defined. |
 | `api-reference/introduction.mdx` | Dummy API explanation | Keep only as an explicitly labelled OpenAPI demonstration. |
 | `api-reference/writing-api.mdx` | Unsupported API draft | Deleted by product decision. |

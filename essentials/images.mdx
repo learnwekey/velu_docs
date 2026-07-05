@@ -1,29 +1,96 @@
 ---
-title: Images
-description: Add images and visual media.
+title: Images and media
+description: Add local or remote images with accessible text, captions, and optional presentation chrome.
 ---
 
-Use standard Markdown images, or the `Image` component for captions
-and framing.
+Store documentation assets in the project and reference them from MDX, or use
+an approved remote HTTPS URL.
+
+## Add a Markdown image
+
+Place a file under the project root, such as `images/dashboard.png`, and use a
+root-relative path:
 
 ```md
-![Alt text](/images/diagram.png)
+![Deployment status showing a successful production release](/images/dashboard.png)
 ```
 
-<Callout type="tip">
-  Put assets in a folder like `/images` at your project root and
-  reference them with an absolute path.
-</Callout>
+The path begins at the directory containing `velu.json`.
 
-## Cards with media
+## Add a caption or chrome
 
-Cards can hold images, prose, or anything else:
+Use `Image` for captions and decorative window or device frames:
 
-<CardGroup>
-  <Card title="Light & dark" icon="moon">
-    Assets and colors adapt to the active theme.
-  </Card>
-  <Card title="Responsive" icon="smartphone">
-    Layout reflows cleanly from desktop to mobile.
-  </Card>
-</CardGroup>
+```mdx
+<Image
+  src="/images/dashboard.png"
+  alt="Deployment status showing a successful production release"
+  caption="A successful production deployment"
+  chrome="window"
+/>
+```
+
+<Field name="src" type="string" required>
+Project-relative image path or remote image URL.
+</Field>
+
+<Field name="alt" type="string" default="">
+Text alternative for the image. If omitted and `caption` is a string, Velu
+uses the caption as alternative text.
+</Field>
+
+<Field name="caption" type="string | node">
+Content displayed below the image.
+</Field>
+
+<Field name="chrome" type="string">
+Use `window` for browser screenshots or `frame` for content that benefits from
+a device-like frame. Omit the property for a plain image.
+</Field>
+
+## Write useful alternative text
+
+Describe the information needed to complete the task:
+
+- For a screenshot, identify the relevant screen, control, and state.
+- For a diagram, state the relationship or flow it communicates.
+- For a decorative image, use an empty `alt` value.
+- Do not begin with “Image of” or repeat the surrounding caption verbatim.
+
+## Choose durable assets
+
+- Crop screenshots to the relevant interface area.
+- Remove credentials, personal data, and tenant identifiers.
+- Prefer local assets when the documentation must not depend on a third-party
+  host.
+- Use filenames that describe the asset rather than its capture order.
+- Update screenshots when labels or workflows change.
+- Compress large raster images before committing them.
+
+## Use images in cards
+
+`Card.img` renders media above card content, and `Card.imgAlt` supplies its
+alternative text:
+
+```mdx
+<Card
+  title="Deployment overview"
+  img="/images/deployments.png"
+  imgAlt="Deployment list with one successful production release"
+>
+  Review production and preview deployments.
+</Card>
+```
+
+## Verify media
+
+Preview the page in light and dark themes, resize the browser, and confirm that
+the image remains readable. Run `velu validate`; it validates `Image.src` is
+present but does not prove that every remote URL is available.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Review <a href="/components/media-updates">Image and Update properties</a>.</li>
+  <li>Configure the site's <a href="/essentials/appearance">logo and favicon</a>.</li>
+</ol>

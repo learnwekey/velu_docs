@@ -1,0 +1,156 @@
+---
+title: Header and footer
+description: Add global header links, a primary action, social profiles, and footer columns.
+---
+
+Use `navbar` and `footer` in `velu.json` for destinations that should remain
+available across the documentation site.
+
+<Columns cols={2}>
+
+<Card title="Header" icon="panel-top">
+Add secondary links and one primary action beside the site navigation.
+</Card>
+
+<Card title="Footer" icon="panel-bottom">
+Add social profiles and up to four groups of global links.
+</Card>
+
+</Columns>
+
+<Callout type="tip">
+
+Replace `yourcompany` and `yourdomain.com` with your own account names and
+domains before using these examples.
+
+</Callout>
+
+## Configure header links
+
+```json
+{
+  "navbar": {
+    "links": [
+      {
+        "label": "Status",
+        "href": "https://status.yourdomain.com",
+        "icon": "activity"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Open dashboard",
+      "href": "https://app.yourdomain.com"
+    }
+  }
+}
+```
+
+<Field name="navbar.links" type="array">
+Adds secondary actions to the header. Every item requires `href`; `label` and
+a Lucide icon ID are optional. Use a visible label unless the icon's meaning is
+unambiguous.
+</Field>
+
+<Field name="navbar.primary" type="button | github">
+Adds one prominent action after the secondary links.
+</Field>
+
+For a button, provide `type`, `label`, and `href`:
+
+```json
+{
+  "type": "button",
+  "label": "Open dashboard",
+  "href": "https://app.yourdomain.com"
+}
+```
+
+For a GitHub action, provide `type` and `href`. The label defaults to `GitHub`:
+
+```json
+{
+  "type": "github",
+  "href": "https://github.com/yourcompany/docs",
+  "label": "View source"
+}
+```
+
+HTTP, HTTPS, email, and telephone destinations are treated as external links.
+Site-relative destinations use the documentation router.
+
+## Configure social profiles
+
+```json
+{
+  "footer": {
+    "socials": {
+      "github": "https://github.com/yourcompany",
+      "x": "https://x.com/yourcompany",
+      "youtube": "https://youtube.com/@yourcompany",
+      "linkedin": "https://linkedin.com/company/yourcompany"
+    }
+  }
+}
+```
+
+Velu renders icons for `github`, `x` or `twitter`, `youtube`, and `linkedin`.
+Unknown platform names are skipped. Social links open in a new tab with an
+accessible platform label.
+
+When `footer` contains only social profiles, the icons appear beside the
+“Powered by” line. Adding link columns switches to the full footer layout.
+
+## Add footer columns
+
+```json
+{
+  "footer": {
+    "socials": {
+      "github": "https://github.com/yourcompany"
+    },
+    "links": [
+      {
+        "header": "Resources",
+        "items": [
+          { "label": "Status", "href": "https://status.yourdomain.com" },
+          { "label": "Support", "href": "https://yourdomain.com/support" }
+        ]
+      },
+      {
+        "header": "Company",
+        "items": [
+          { "label": "Website", "href": "https://yourdomain.com" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+`footer.links` accepts up to four columns. Each column requires `header` and
+`items`; every item requires `label` and `href`. Columns wrap into a vertical
+layout when the available width becomes too narrow.
+
+## Choose global links deliberately
+
+- Reserve the primary action for the most important site-wide destination.
+- Use documentation navigation instead of repeating every page in the footer.
+- Prefer HTTPS for external destinations.
+- Make labels understandable without nearby context.
+- Check wrapping, focus order, and overflow at narrow widths.
+
+## Verify the header and footer
+
+1. Run `velu dev` and open several documentation pages.
+2. Test each internal, external, email, and telephone link.
+3. Resize the page and confirm actions remain accessible.
+4. Confirm each social profile displays the expected icon and label.
+5. Run `velu validate` to check the configuration shape.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Apply <a href="/essentials/appearance">colors, fonts, logos, and favicons</a>.</li>
+  <li>Configure <a href="/essentials/seo-social">SEO and social sharing</a>.</li>
+</ol>

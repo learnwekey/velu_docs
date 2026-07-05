@@ -1,0 +1,43 @@
+---
+title: llms.txt
+description: How Velu publishes Markdown exports for agents and retrieval.
+---
+
+Velu publishes two agent-oriented exports for every site: `/llms.txt` and
+`/llms-full.txt`. It also serves a Markdown twin for each page so humans and
+agents can read the same source in different formats.
+
+<Tree>
+  <Folder name="Published site" icon="book-open">
+    <File name="llms.txt" icon="list-tree" />
+    <File name="llms-full.txt" icon="file-text" />
+    <Folder name="Markdown twins" icon="copy">
+      <File name="quickstart.md" />
+      <File name="navigation.md" />
+      <File name="api-reference/openapi.md" />
+    </Folder>
+  </Folder>
+</Tree>
+
+<Callout type="note">
+  Velu advertises the exports with response headers, so clients can discover
+  them without parsing the HTML first.
+</Callout>
+
+## How they are generated
+
+The dev server and the static build both reuse the same site model, so the
+exports stay aligned with the docs navigation and page content.
+
+## When to use them
+
+Use these exports when you want the docs to be easy to ingest by search tools,
+RAG pipelines, and other agent workflows.
+
+<Field name="llms.txt" type="index">
+The grouped site index for agents.
+</Field>
+
+<Field name="llms-full.txt" type="markdown">
+The full documentation corpus in one document.
+</Field>

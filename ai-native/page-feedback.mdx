@@ -1,0 +1,74 @@
+---
+title: Page feedback
+description: How Velu collects the helpful / not helpful signal at the foot of a page.
+---
+
+Velu includes a page-feedback widget on published pages. It asks whether the
+page was helpful, then sends a best-effort submission to the hosted feedback
+API.
+
+The widget is client-side only in the dev preview. On a published site, it uses
+the same assistant API base as Ask Velu and resolves the tenant from the site
+host.
+
+<Callout type="note">
+  The code shows the submission shape and wiring. Hosted retention, moderation,
+  and admin review flows still need product evidence before we document them.
+</Callout>
+
+## How it works
+
+<Steps>
+  <Step title="Choose Yes or No">
+    Readers answer from the footer of the page.
+  </Step>
+  <Step title="Add context if needed">
+    Choosing No opens a short improvement form with reason options and an
+    optional free-text field.
+  </Step>
+  <Step title="Submit feedback">
+    Velu posts the response to the public feedback endpoint and keeps the page
+    experience uninterrupted if the network fails.
+  </Step>
+</Steps>
+
+## Submission contract
+
+<Field name="assistant.apiBase" type="string" required>
+The published assistant/feedback API base from `velu.json`.
+</Field>
+
+<Field name="assistant.host" type="string">
+The site host used to resolve the tenant.
+</Field>
+
+<Field name="page_url" type="string" required>
+The current page URL without the hash or query string.
+</Field>
+
+<Field name="helpful" type="boolean" required>
+`true` for Yes, `false` for No.
+</Field>
+
+<Field name="reason_text" type="string" required>
+The selected reason label, or a fallback label such as `Helpful` / `Not helpful`.
+</Field>
+
+<Field name="details" type="string">
+Optional free-text context from the follow-up form.
+</Field>
+
+## What readers see
+
+<AccordionGroup>
+  <Accordion title="When the answer is Yes">
+    The widget records the vote and shows a short confirmation state.
+  </Accordion>
+  <Accordion title="When the answer is No">
+    The widget opens the improvement form so the reader can explain what needs
+    to change.
+  </Accordion>
+  <Accordion title="When the request fails">
+    The feedback flow is best-effort and does not block the page.
+  </Accordion>
+</AccordionGroup>

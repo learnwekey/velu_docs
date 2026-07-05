@@ -1,0 +1,218 @@
+---
+title: Products, versions, and languages
+description: Add navigation switchers and control how their defaults affect documentation URLs.
+---
+
+Products, versions, and languages are optional navigation axes. Each axis
+nests the levels below it and creates a switcher when more than one option is
+available in the active branch.
+
+<CardGroup>
+
+<Card title="Products" icon="boxes">
+Separate documentation for distinct products while sharing one site.
+</Card>
+
+<Card title="Versions" icon="history">
+Keep current and previous documentation available under stable URL prefixes.
+</Card>
+
+<Card title="Languages" icon="languages">
+Present localized content with ISO language codes and native labels.
+</Card>
+
+</CardGroup>
+
+## Understand switcher URLs
+
+Non-default options add their slug before the page path:
+
+```text
+/<product>/<version>/<language>/<page-path>
+```
+
+Default options add no segment. If no sibling has `default: true`, Velu makes
+the first item the default. Declare one default explicitly so reordering an
+array does not change public URLs.
+
+<Callout type="warning">
+
+Mark exactly one sibling as the default. Multiple defaults omit the same URL
+segment and can create collisions; Velu warns and keeps the first page at each
+duplicate URL.
+
+</Callout>
+
+Selecting a switcher option opens the first page in that option's subtree. It
+does not attempt to find the equivalent of the current page in the new product,
+version, or language.
+
+## Configure products
+
+```json
+{
+  "navigation": {
+    "products": [
+      {
+        "product": "platform",
+        "name": "Platform",
+        "default": true,
+        "groups": [
+          { "group": "Guides", "pages": ["overview"] }
+        ]
+      },
+      {
+        "product": "cli",
+        "name": "CLI",
+        "icon": "terminal",
+        "groups": [
+          { "group": "Guides", "pages": ["overview"] }
+        ]
+      }
+    ]
+  }
+}
+```
+
+<Field name="product" type="string" required>
+Sets the product identifier and non-default URL slug.
+</Field>
+
+<Field name="name" type="string" default="product">
+Sets the displayed product name.
+</Field>
+
+<Field name="default" type="boolean">
+Keeps this product's URLs unprefixed. The first product becomes the default
+when none is declared.
+</Field>
+
+<Field name="icon" type="string">
+Sets a Lucide icon in the product switcher.
+</Field>
+
+The example produces `/overview` for Platform and `/cli/overview` for CLI.
+Both routes can load the same `overview.mdx` source file.
+
+## Configure versions
+
+Versions can exist at the navigation root or inside a product:
+
+```json
+{
+  "product": "api",
+  "default": true,
+  "versions": [
+    {
+      "version": "v2",
+      "default": true,
+      "groups": [
+        { "group": "API", "pages": ["overview"] }
+      ]
+    },
+    {
+      "version": "v1",
+      "groups": [
+        { "group": "API", "pages": ["overview"] }
+      ]
+    }
+  ]
+}
+```
+
+<Field name="version" type="string" required>
+Sets both the displayed version label and the non-default URL slug.
+</Field>
+
+<Field name="default" type="boolean">
+Keeps this version's URLs unprefixed. The first version becomes the default
+when none is declared.
+</Field>
+
+The example produces `/overview` for v2 and `/v1/overview` for v1. Changing
+the default version changes public URLs, so prepare redirects before changing
+it on a published site.
+
+## Configure languages
+
+Use ISO 639-1 two-letter language codes:
+
+```json
+{
+  "languages": [
+    {
+      "language": "en",
+      "default": true,
+      "groups": [
+        { "group": "Guides", "pages": ["overview"] }
+      ]
+    },
+    {
+      "language": "fr",
+      "groups": [
+        { "group": "Guides", "pages": ["overview-fr"] }
+      ]
+    }
+  ]
+}
+```
+
+<Field name="language" type="string" required>
+Sets the language code and non-default URL slug. Velu displays the code and its
+native language name in the switcher.
+</Field>
+
+<Field name="default" type="boolean">
+Keeps this language's URLs unprefixed. The first language becomes the default
+when none is declared.
+</Field>
+
+The example produces `/overview` for English and `/fr/overview-fr` for French.
+`velu validate` warns when a language code is not valid ISO 639-1.
+
+## Combine navigation axes
+
+Nest axes in this order:
+
+```text
+products
+└── versions
+    └── languages
+        └── tabs
+            └── groups
+                └── pages
+```
+
+An axis can skip a lower switchable axis and go directly to tabs, groups, or
+pages. Do not place a higher-precedence axis below a lower one. For example,
+put versions inside products rather than products inside versions.
+
+Switcher options are scoped to the active outer branch. Versions come from the
+active product, and languages come from the active version or product.
+
+## Plan paths and links
+
+- The source page path follows every non-default axis prefix. Velu does not
+  remove a matching directory name from the source path.
+- Use distinct source files when product, version, or language content differs.
+- Keep default URLs stable where possible.
+- Root-relative links do not inherit the current switcher prefixes. Test links
+  from every supported product, version, and language.
+- Put the most useful landing page first in every option because switchers open
+  the first page in the selected subtree.
+
+## Verify switchers
+
+1. Run `velu dev` and select every product, version, and language.
+2. Confirm each option opens the intended landing page.
+3. Check URL prefixes for default and non-default options.
+4. Test cross-page links in every context.
+5. Review switchers on desktop and mobile.
+6. Run `velu validate` and resolve duplicate URL and language-code warnings.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Review <a href="/essentials/navigation">pages, groups, tabs, and anchors</a>.</li>
+  <li>Configure <a href="/essentials/header-footer">global header and footer links</a>.</li>
+</ol>

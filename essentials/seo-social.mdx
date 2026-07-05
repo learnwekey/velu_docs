@@ -1,0 +1,156 @@
+---
+title: SEO and social sharing
+description: Configure metadata, indexing, social images, sitemap output, and crawler behavior.
+---
+
+Velu adds search and social metadata while producing the published site. Use
+`seo` and `thumbnails` in `velu.json` for global behavior, then use frontmatter
+when a page needs an override.
+
+<Callout type="note">
+
+SEO tags, generated social images, `sitemap.xml`, and `robots.txt` are
+build-time output. They are not fully represented by `velu dev`; verify them on
+a published preview. Replace `yourdomain.com` and `YourCompany` in this page's
+examples with your own domain and organization name.
+
+</Callout>
+
+<Columns cols={2}>
+
+<Card title="Page metadata" icon="tags">
+Generate titles, descriptions, canonical links, robots directives, and
+structured data.
+</Card>
+
+<Card title="Indexing" icon="scan-search">
+Control crawler directives and which pages appear in the generated sitemap.
+</Card>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="Social cards" icon="image">
+Generate branded Open Graph images or provide global and page-level overrides.
+</Card>
+
+<Card title="Crawler files" icon="bot">
+Generate `sitemap.xml` and `robots.txt`, with support for project-owned
+replacements.
+</Card>
+
+</Columns>
+
+## Configure global metadata
+
+```json
+{
+  "seo": {
+    "indexing": "navigable",
+    "metatags": {
+      "google-site-verification": "verification-token",
+      "og:image": "https://cdn.yourdomain.com/docs/social-default.png"
+    }
+  },
+  "thumbnails": {
+    "background": "/images/og-background.png"
+  }
+}
+```
+
+<Field name="seo.indexing" type="navigable | all" default="navigable">
+Controls whether a page marked `hidden: true` receives `noindex` metadata.
+`all` allows those pages to be indexed. This field does not remove a page from
+navigation.
+</Field>
+
+<Field name="seo.metatags" type="object">
+Adds flat key-value metadata to every page. Open Graph keys use the `property`
+attribute; other keys use the `name` attribute.
+</Field>
+
+<Field name="thumbnails.background" type="string">
+Sets a project-relative background image for automatically generated social
+cards. When absent, Velu uses a brand-color background.
+</Field>
+
+The hosted build injects the site's production origin. Do not add a `url` field
+to `velu.json`; it is not part of the 0.2.27 schema.
+
+## Override metadata for a page
+
+```mdx
+---
+title: Configure authentication
+description: Add authentication to requests made to the YourCompany API.
+canonical: https://docs.yourdomain.com/guides/authentication
+keywords:
+  - API authentication
+  - access tokens
+og:title: Authenticate with the YourCompany API
+og:description: Configure access tokens for YourCompany API requests.
+twitter:card: summary_large_image
+---
+```
+
+Velu's production metadata supports these page fields:
+
+| Field | Behavior |
+| --- | --- |
+| `title` | Produces `Page title - Site name`; the home page uses the site name. |
+| `description` | Supplies description, Open Graph description, and Twitter description defaults. |
+| `canonical` | Overrides the generated canonical URL. |
+| `keywords` | Accepts a string or an array and emits keywords metadata. |
+| `noindex` | When `true`, excludes the page from the generated sitemap and defaults robots metadata to `noindex, nofollow`. |
+| `robots` | Supplies an explicit robots directive. |
+| `hidden` | Defaults to noindex when `seo.indexing` is `navigable`; it does not hide sidebar navigation. |
+| `og:type`, `og:locale`, `og:title`, `og:description`, `og:url`, `og:image` | Overrides Open Graph defaults. |
+| `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image` | Overrides Twitter card defaults. |
+
+Use page frontmatter for page-specific metadata. A page-level `og:image`
+overrides the site-wide `og:image` value.
+
+## Generate social images
+
+During publishing, Velu attempts to generate a 1200 by 630 pixel Open Graph
+image for every page. The card uses the page title, site name, group, primary
+accent color, optional thumbnail background, and configured dark-mode logo.
+
+A page-level `og:image` overrides the generated card. A global
+`seo.metatags["og:image"]` provides a site-wide override. If image generation
+fails, the page still publishes and uses an explicit override when one exists.
+
+## Understand crawler output
+
+The published build generates:
+
+- Page descriptions, canonical links, robots directives, Open Graph tags, and
+  Twitter card tags.
+- Breadcrumb structured data, plus website and organization data on the home
+  page when the hosted origin is available.
+- `sitemap.xml` containing indexable pages and last-modified dates.
+- `robots.txt` that allows crawling and points to the sitemap when the hosted
+  origin is available.
+- A standard 404 page with `noindex` metadata.
+
+A project-owned `robots.txt` or `sitemap.xml` at the project root takes
+precedence over generated output. Use an override only when you intend to
+maintain the entire file yourself.
+
+## Verify published metadata
+
+1. Publish to a preview environment.
+2. View the page source and confirm the title, description, canonical URL,
+   robots directive, and social tags.
+3. Open `/sitemap.xml` and confirm excluded pages are absent.
+4. Open `/robots.txt` and confirm the sitemap URL uses the published domain.
+5. Test representative pages with the social-preview tools used by your team.
+6. Check the generated image, logo contrast, and text length.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Configure <a href="/essentials/appearance">appearance and branding</a>.</li>
+  <li>Review <a href="/essentials/pages">page frontmatter</a> before adding per-page overrides.</li>
+</ol>

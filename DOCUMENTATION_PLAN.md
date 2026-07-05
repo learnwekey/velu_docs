@@ -10,7 +10,7 @@ not be copied.
 Every Velu claim must be supported by one of these sources of truth:
 
 1. Product or platform implementation.
-2. The published `@aravindc26/velu` package and npm documentation.
+2. The published `@veluai/velu` package and npm documentation.
 3. The supported `velu.json` schema.
 4. A working dashboard or hosted-site flow.
 5. An approved API specification or product decision.
@@ -61,7 +61,7 @@ Documentation
 ├── Get started
 │   ├── Introduction
 │   ├── Quickstart
-│   ├── How Velu works
+│   ├── AI native
 │   └── Migrate existing documentation
 │
 ├── Create content
@@ -73,7 +73,6 @@ Documentation
 │   └── Reusable content
 │
 ├── Organize
-│   ├── velu.json overview
 │   ├── Navigation
 │   ├── Tabs, groups, pages, and anchors
 │   ├── Products
@@ -81,12 +80,11 @@ Documentation
 │   └── Languages
 │
 ├── Customize
+│   ├── velu.json overview
 │   ├── Docs site structure
-│   ├── Appearance and themes
-│   ├── Colors, fonts, logo, and favicon
-│   ├── Custom domains
-│   ├── Custom CSS and JavaScript
-│   └── Custom 404 page
+│   ├── Appearance and branding
+│   ├── Header and footer
+│   └── SEO and social sharing
 │
 ├── Document APIs
 │   ├── API documentation overview
@@ -236,7 +234,7 @@ Rewrite or add:
 
 - Introduction.
 - Quickstart.
-- How Velu works.
+- AI-native overview.
 - Docs site structure.
 - Velu installation.
 - Local preview.
@@ -248,7 +246,7 @@ published edit without requiring another page.
 
 **Status:** Implemented. The introduction and quickstart were rewritten, and
 pages were added for the product workflow, docs site structure, Velu installation,
-local preview, validation, and deployment. Static validation passes. Exact
+local preview, validation, and deployment. `velu validate` passes. Exact
 dashboard labels and screenshots remain subject to review against the hosted
 interface.
 
@@ -257,11 +255,12 @@ interface.
 Document pages, frontmatter, Markdown, code, media, navigation, configuration,
 customization, and every confirmed author-facing component.
 
-**Status:** On hold as of July 3, 2026. Resume after confirming which package
-defines the current product contract: `@aravindc26/velu` 0.13.24 or
-`@veluai/velu` 0.2.25. Phase 1 currently documents the former, while the local
-preview environment runs the latter. Their configuration schemas and component
-contracts differ, so Phase 2 must not mix the two implementations.
+**Status:** Implemented as of July 4, 2026. `@veluai/velu` 0.2.25 is the
+authoritative package contract. Phase 2 adds task-oriented pages for MDX,
+frontmatter, code, images, reuse, `velu.json`, navigation axes, appearance,
+header/footer configuration, and every confirmed author-facing component.
+Phase 1 command, package, file-extension, Node.js, and local-port guidance was
+updated to the same contract.
 
 ### Phase 3: Product differentiators
 
@@ -278,7 +277,7 @@ public API is supported.
 
 ### Phase 5: Quality and launch
 
-- Run `velu lint`.
+- Run `velu validate`.
 - Test every command and example.
 - Test internal and external links.
 - Review desktop and mobile rendering.
@@ -301,21 +300,23 @@ A page is complete only when:
 - Components follow `DOCUMENTATION_STYLE_GUIDE.md`.
 - Links, headings, code language labels, and alternative text are valid.
 - The page has an appropriate next action.
-- `velu lint` passes.
+- `velu validate` passes.
 
 ## Initial repository findings
 
-- The repository currently contains starter content rather than complete
-  product documentation.
+- The repository originally contained starter content. Phase 1 and Phase 2
+  replace the public onboarding and core-authoring sections with product docs.
 - `new-page-test.mdx` is a component test fixture and must not be in public
   navigation.
 - The example `openapi.json` describes a DummyJSON product catalog, not the
   Velu API.
 - The unsupported `api-reference/writing-api.mdx` draft has been deleted.
-- The public package is `@aravindc26/velu`. Its documented commands are
-  `init`, `lint`, `run`, and `build`.
-- The public package requires Node.js 20.9 or later and serves the local site
-  on port 4321 by default.
+- The public package is `@veluai/velu` 0.2.25. Its documented commands are
+  `init`, `dev`, `validate`, and `update`.
+- The public package requires Node.js 18 or later and serves the local site on
+  port 8358 by default. Set the `PORT` environment variable to override it.
+- Navigated authored pages resolve to `.mdx` files. Markdown syntax is
+  supported inside MDX; a `.md` file does not satisfy a navigation entry.
 - Some public marketing claims are hosted-platform features and cannot be
   proven from this documentation repository alone.
 
@@ -340,3 +341,5 @@ A page is complete only when:
 - `PRODUCT_CAPABILITY_MATRIX.md`: what is verified, provisional, or blocked.
 - `DOCUMENTATION_STYLE_GUIDE.md`: writing, page, and component usage rules.
 - `DOCUMENTATION_PLAN.md`: scope, sequence, and definition of done.
+- `DOCUMENTATION_EVIDENCE_GAPS.md`: topics deferred because their exact
+  author-facing behavior is unsupported or confidence is too low.

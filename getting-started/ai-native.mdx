@@ -1,0 +1,110 @@
+---
+title: AI native
+description: Discover how Velu makes documentation accessible to people, AI assistants, and agents.
+---
+
+Velu is AI-first: AI access is built into the documentation experience rather
+than added after a site is published. The same source content that serves
+readers also powers conversational answers, search, agent-readable Markdown,
+and connections to external AI tools.
+
+Readers can find an answer in the interface or take documentation context into
+the assistant, editor, or agent where they are already working. Teams maintain
+one documentation source while Velu presents it in the form each reader or
+tool needs.
+
+## AI-native features
+
+<Columns cols={2}>
+
+<Card title="Ask AI" icon="message-circle-question">
+Readers can ask questions from any published page and receive conversational
+answers based on the documentation. The assistant can also present up to six
+starter questions to help readers begin.
+</Card>
+
+<Card title="Documentation search" icon="search">
+Published sites index documentation for fast, site-wide discovery. Readers can
+search from the header and open matching pages without navigating the full
+sidebar.
+</Card>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="Contextual actions" icon="mouse-pointer-click">
+Each page can offer actions to copy or view its content and open its context in
+supported AI assistants, editors, and agent tools. Teams choose which actions
+appear and where the menu is displayed.
+</Card>
+
+<Card title="Markdown for agents" icon="file-text">
+Velu serves a Markdown representation of every documentation page. Agents can
+request a page with a `.md` URL or ask the canonical page URL for
+`text/markdown` content.
+</Card>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="llms.txt discovery" icon="list-tree">
+`/llms.txt` provides a grouped index of documentation pages, while
+`/llms-full.txt` provides the complete documentation corpus in one Markdown
+document.
+</Card>
+
+<Card title="MCP integration" icon="network">
+Compatible AI clients and agents can connect to the documentation through
+Velu's hosted MCP endpoint. Contextual actions provide installation paths for
+supported clients.
+</Card>
+
+</Columns>
+
+<Callout type="note">
+
+Ask AI and indexed search use the published site. The local preview is intended
+for reviewing content, navigation, and component rendering.
+
+</Callout>
+
+Detailed configuration, hosted behavior, permissions, and limits will be
+covered in the AI-native feature guides.
+
+## Detailed guides
+
+<Columns cols={2}>
+
+<Card title="Ask Velu" icon="message-circle-question" cta={{ label: "Read the guide", href: "/ai-native/ask-velu" }}>
+Learn how the hosted assistant is wired, what it needs from `velu.json`, and
+what it does in the published site.
+</Card>
+
+<Card title="Search" icon="search" cta={{ label: "Read the guide", href: "/ai-native/search" }}>
+See how site search works, what Pagefind indexes, and how readers move from
+queries to pages.
+</Card>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="Contextual actions" icon="mouse-pointer-click" cta={{ label: "Read the guide", href: "/ai-native/contextual-actions" }}>
+Explore the per-page action menu for copy, AI assistants, IDEs, and MCP.
+</Card>
+
+<Card title="llms.txt and MCP" icon="network" cta={{ label: "Read the guide", href: "/ai-native/mcp" }}>
+Learn how Velu exposes Markdown exports and an MCP endpoint for agents.
+</Card>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="Page feedback" icon="message-circle-question" cta={{ label: "Read the guide", href: "/ai-native/page-feedback" }}>
+See how the footer feedback widget posts to the published feedback API.
+</Card>
+
+</Columns>

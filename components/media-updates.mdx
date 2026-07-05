@@ -1,0 +1,99 @@
+---
+title: Media and update components
+description: Present accessible images and structured changelog entries in authored pages.
+---
+
+Use `Image` when media needs a caption or presentation frame. Use `Update` to
+turn an ordinary page into a structured changelog.
+
+## Image
+
+```mdx
+<Image
+  src="/images/deployment.png"
+  alt="Deployment status showing a successful production release"
+  caption="Production deployment completed"
+  chrome="window"
+/>
+```
+
+<Field name="src" type="string" required>
+Local project path or remote image URL.
+</Field>
+
+<Field name="alt" type="string" default="">
+Text alternative. If absent and `caption` is a string, the caption becomes the
+alternative text.
+</Field>
+
+<Field name="caption" type="string | node">
+Content rendered below the image.
+</Field>
+
+<Field name="chrome" type="string">
+`window` adds browser-style chrome; `frame` adds a device-like frame. Any other
+or absent value renders a plain image.
+</Field>
+
+All image variants lazy-load. Use `window` for browser screenshots, `frame`
+only when a device frame adds context, and plain images for diagrams and
+general assets.
+
+## Update
+
+A page becomes a changelog when it contains one or more `Update` components:
+
+```mdx
+<Update
+  date="2026-07-04"
+  description="Local authoring improvements"
+  tags={["CLI", "Documentation"]}
+>
+
+## Validate MDX projects
+
+The CLI now checks navigation, assets, MDX syntax, and component usage.
+
+</Update>
+```
+
+<Field name="label" type="string">
+Primary update label and linkable anchor source. Takes priority over `date`.
+</Field>
+
+<Field name="date" type="string">
+Fallback label when `label` is absent. Velu displays the string as provided.
+</Field>
+
+<Field name="description" type="string">
+Short summary in the update metadata column.
+</Field>
+
+<Field name="tags" type="string | string[]">
+One or more visible tags. Page-level update filters are generated from tags.
+</Field>
+
+<Field name="rss" type="any">
+Accepted for authoring parity; RSS metadata is handled during the build rather
+than rendered by the component.
+</Field>
+
+`Update` generates an anchor beginning with `update-` from its label, date, or
+the fallback `Update`. Use unique labels on the page to avoid duplicate
+anchors.
+
+## Write maintainable changelogs
+
+- Use an unambiguous date format such as `YYYY-MM-DD` when the date is the
+  label.
+- Describe user-visible outcomes, not internal implementation activity.
+- Keep tag spelling and capitalization consistent across entries.
+- Put detailed headings and migration guidance inside the update body.
+- Use `Update` only for dated changes, not ordinary announcements.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Follow the <a href="/essentials/images">image accessibility guide</a>.</li>
+  <li>Document configuration and endpoint values with <a href="/components/reference">reference elements</a>.</li>
+</ol>

@@ -1,0 +1,127 @@
+---
+title: Code and AI components
+description: Configure code blocks, equivalent code tabs, and copyable AI prompts.
+---
+
+Use `CodeBlock` and `CodeGroup` for enhanced source presentation. Use `Prompt`
+for a complete AI instruction that readers can copy or open in Cursor.
+
+<Callout type="tip">
+
+Replace `yourdomain.com` with your own API or application domain before using
+an example.
+
+</Callout>
+
+## CodeBlock
+
+```mdx
+<CodeBlock
+  filename="src/config.js"
+  language="javascript"
+  lineNumbers
+  highlight="2-3"
+>
+  {`export const config = {
+  endpoint: "https://api.yourdomain.com",
+  timeout: 5000,
+};`}
+</CodeBlock>
+```
+
+<Field name="filename" type="string">
+Label for a standalone file example. Takes priority over `title`.
+</Field>
+
+<Field name="title" type="string">
+Standalone label or tab label when nested in `CodeGroup`.
+</Field>
+
+<Field name="language" type="string" default="text">
+Prism language used for highlighting and the automatic icon.
+</Field>
+
+<Field name="icon" type="string | node">
+Explicit Lucide icon ID or custom icon.
+</Field>
+
+<Field name="withIcon" type="boolean" default="true">
+Enables the automatic language icon when no explicit icon is set.
+</Field>
+
+<Field name="lineNumbers" type="boolean" default="false">
+Displays one-based line numbers.
+</Field>
+
+<Field name="highlight" type="string | number[]">
+One-based lines to emphasize. Strings accept values such as `"2"` or
+`"1-3,6"`.
+</Field>
+
+The component copies the normalized full code value. Languages not in the
+initial Prism bundle are loaded after the page hydrates; the code remains
+readable before highlighting is available.
+
+## CodeGroup
+
+```mdx
+<CodeGroup defaultIndex={0}>
+  <CodeBlock title="JavaScript" language="javascript">
+    {`await fetch("https://api.yourdomain.com/users");`}
+  </CodeBlock>
+  <CodeBlock title="Python" language="python">
+    {`requests.get("https://api.yourdomain.com/users")`}
+  </CodeBlock>
+</CodeGroup>
+```
+
+<Field name="defaultIndex" type="number" default="0">
+Zero-based index of the initially visible `CodeBlock`.
+</Field>
+
+Only direct `CodeBlock` children become tabs. Give each child a `title`; when
+omitted, Velu falls back to `Tab 1`, `Tab 2`, and so on.
+
+## Prompt
+
+Use a JavaScript template string expression to guarantee that the complete
+prompt is a copyable string:
+
+```mdx
+<Prompt title="Review this page" lines={5} openInCursor>
+  {`Review this documentation page for:
+- unsupported product claims
+- missing prerequisites
+- commands that cannot be executed
+
+Return a concise list of required changes.`}
+</Prompt>
+```
+
+<Field name="title" type="node">
+Short heading displayed above the prompt preview.
+</Field>
+
+<Field name="lines" type="number" default="3">
+Maximum preview lines before visual truncation. Copying still uses the full
+string.
+</Field>
+
+<Field name="openInCursor" type="boolean" default="false">
+Adds an external Cursor action containing the encoded prompt.
+</Field>
+
+<Field name="children" type="string" required>
+Full prompt copied to the clipboard. Non-string children can render but do not
+produce useful copy or Cursor text.
+</Field>
+
+State the expected result before a prompt and tell the reader what to review
+before accepting generated changes.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Review the task-oriented <a href="/essentials/code">code example guide</a>.</li>
+  <li>Add screenshots or changelogs with <a href="/components/media-updates">media and update components</a>.</li>
+</ol>
