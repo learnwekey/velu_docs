@@ -1,80 +1,49 @@
 ---
 title: Introduction
-description: Build and publish documentation from the dashboard or a Git repository.
+description: Learn what Velu is and choose where to begin.
 ---
 
-Velu is an AI-native documentation platform for creating, previewing, and
-publishing documentation. Write and publish in the dashboard, or connect a Git
-repository and work locally with Markdown, AI coding agents, and Velu's command
-line tools.
+Velu is an AI-native documentation platform for creating, publishing, and
+maintaining documentation. Teams can write in the web editor or manage MDX
+content in Git with Velu's command-line tools.
 
-<Callout type="note">
-
-You do not need to connect a Git repository to access the dashboard or use the
-web editor. Connect a documentation repository when you want a docs-as-code
-workflow, Git-based automation, or self-updating documentation.
-
-</Callout>
-
-## Choose how you write
-
-Velu supports two authoring workflows:
+Velu combines authoring, reusable components, API documentation, and
+AI-native discovery in one documentation experience. Use the paths below to
+start publishing or explore a specific part of the platform.
 
 <Columns cols={2}>
 
-<Card title="Docs as code" icon="git-branch" cta={{ label: "Use docs as code", href: "/quickstart#use-docs-as-code" }}>
-Work in your local repository with Codex, Claude Code, or your editor. Preview,
-validate, and review changes before pushing them. This workflow requires a
-connected Git repository.
+<Card title="Quickstart" icon="rocket" cta={{ label: "Get started", href: "/quickstart" }}>
+Create your Velu account and publish your first documentation change.
 </Card>
 
-<Card title="Dashboard editor" icon="panels-top-left" cta={{ label: "See the editor workflow", href: "/quickstart#use-the-dashboard-editor" }}>
-Write and publish from the browser without connecting a Git repository or
-installing local tools.
+<Card title="Web editor" icon="panels-top-left" cta={{ label: "Use the web editor", href: "/quickstart#use-the-dashboard-editor" }}>
+Write, preview, and publish documentation from your browser without Git or
+local tools.
 </Card>
 
 </Columns>
 
-Docs as code is the recommended workflow because it gives your team Git
-history, pull-request review, local previews, and access to AI coding agents
-with repository context.
+<Columns cols={2}>
 
-## How a Velu project fits together
-
-<CardGroup>
-
-<Card title="Content" icon="files">
-Markdown pages contain your documentation, code examples, images, and built-in
-Velu components.
+<Card title="CLI installation" icon="terminal" cta={{ label: "Install the CLI", href: "/getting-started/install-velu" }}>
+Install Velu to create, preview, and validate documentation locally.
 </Card>
 
-<Card title="Configuration" icon="settings">
-`velu.json` controls navigation, branding, API documentation, AI actions, and
-site-wide behavior.
+<Card title="Components" icon="blocks" cta={{ label: "Browse components", href: "/components/overview" }}>
+Build structured documentation with Velu's author-facing MDX components.
 </Card>
 
-<Card title="Delivery" icon="cloud-upload">
-Publish directly from the dashboard, deploy changes from a connected Git
-repository, or build a static site locally.
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="AI native" icon="sparkles" cta={{ label: "Explore AI features", href: "/getting-started/ai-native" }}>
+Learn how Velu makes documentation useful to readers, AI tools, and agents.
 </Card>
 
-</CardGroup>
-
-## Start here
-
-<CardGroup>
-
-<Card title="Quickstart" icon="rocket" cta={{ label: "Get started", href: "/quickstart" }}>
-Choose the dashboard editor or docs-as-code, then publish your first change.
+<Card title="API playground" icon="braces" cta={{ label: "Explore the playground", href: "/api-reference/introduction" }}>
+Generate interactive API documentation and let readers test requests.
 </Card>
 
-<Card title="How Velu works" icon="workflow" cta={{ label: "Understand the workflow", href: "/getting-started/how-velu-works" }}>
-See how the dashboard, optional Git repository, local tooling, and hosted site
-work together.
-</Card>
-
-<Card title="Docs site structure" icon="folder-tree" cta={{ label: "Explore the files", href: "/essentials/docs-site-structure" }}>
-Learn how pages, assets, configuration, and navigation are organized.
-</Card>
-
-</CardGroup>
+</Columns>

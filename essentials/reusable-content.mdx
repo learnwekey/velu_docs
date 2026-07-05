@@ -1,0 +1,81 @@
+---
+title: Reuse content safely
+description: Apply supported patterns for shared guidance without creating an unverified MDX dependency.
+---
+
+Velu 0.2.25 does not expose a documented snippet, partial, or include
+component. Keep each page self-contained and use links, shared assets, and
+consistent components to reduce duplication.
+
+## Link to one source of truth
+
+Choose one page to own a procedure or reference definition. Other pages should
+summarize only the context needed for their task and link to the canonical
+section.
+
+```md
+Run validation before publishing. See
+[Validate your documentation](/getting-started/validate).
+```
+
+This pattern prevents several copies of a command or requirement from drifting
+apart.
+
+## Reuse assets
+
+Place shared images under a stable project path:
+
+```text
+images/
+├── architecture-overview.svg
+├── dashboard-project-picker.png
+└── deployment-status.png
+```
+
+Any page can reference the same root-relative path. Update the asset in one
+place when its visual content changes.
+
+## Reuse presentation patterns
+
+Use the same built-in component for the same semantic purpose:
+
+- `Callout` for constraints, risks, and verification states.
+- `Steps` for dependent procedures.
+- `Field` for configuration and parameter definitions.
+- `CardGroup` for a small set of destinations or parallel choices.
+- `CodeGroup` for behaviorally equivalent examples.
+
+The shared component contract keeps layout and behavior consistent even when
+the words are page-specific.
+
+## Avoid unverified imports
+
+MDX can parse JavaScript import syntax, but the public Velu contract does not
+define project-local reusable component resolution, supported module formats,
+or production bundling guarantees. Do not make published documentation depend
+on custom imports until Velu documents that workflow.
+
+<Callout type="warning">
+
+Do not copy prerequisites, security warnings, or version requirements across
+many pages without an ownership plan. These are high-risk details when copies
+drift.
+
+</Callout>
+
+## Review duplicated claims
+
+Before publishing a broad change:
+
+1. Search the repository for the old command, property, or product term.
+2. Update the canonical page first.
+3. Replace secondary explanations with links where possible.
+4. Preview affected pages.
+5. Run `velu validate`.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Follow the <a href="/components/overview">component usage guidance</a>.</li>
+  <li>Use the <a href="/essentials/configuration">configuration reference</a> as the source of truth for `velu.json`.</li>
+</ol>

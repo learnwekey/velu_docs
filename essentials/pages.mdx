@@ -1,0 +1,119 @@
+---
+title: Pages and frontmatter
+description: Create MDX pages, define their metadata, and map file paths to documentation URLs.
+---
+
+Every authored page is an `.mdx` file referenced by the navigation tree. The
+file's frontmatter supplies its title and description.
+
+<Callout type="tip">
+
+Replace `YourCompany` in examples with your own organization or product name.
+
+</Callout>
+
+## Create a page
+
+Create `guides/configure-authentication.mdx`:
+
+```mdx
+---
+title: Configure authentication
+description: Add an API key to requests made to the YourCompany API.
+---
+
+Before you begin, create an API key in the dashboard.
+
+## Add the key to a request
+
+Send the key in the `Authorization` header.
+```
+
+Then add its extensionless path to `velu.json`:
+
+```json
+{
+  "group": "Guides",
+  "pages": ["guides/configure-authentication"]
+}
+```
+
+Run `velu validate` to confirm the file and navigation entry agree.
+
+## Frontmatter fields
+
+<Field name="title" type="string" required>
+Renders as the page's level-one heading, browser title, navigation label, and
+top entry in the on-page table of contents.
+</Field>
+
+<Field name="description" type="string" required>
+Renders below the title and becomes the page's description metadata. Write a
+specific summary that distinguishes the page in search and AI results.
+</Field>
+
+The current runtime consumes `title` and `description`. Do not assume an
+additional frontmatter key changes routing, navigation, or SEO unless that key
+is added to the published package contract.
+
+<Callout type="warning">
+
+Do not add an `#` heading that repeats the frontmatter title. Velu renders the
+title as the page's `h1` automatically.
+
+</Callout>
+
+## Map paths to URLs
+
+Navigation paths are relative to the project root and omit `.mdx`.
+
+| File | Navigation path | URL |
+| --- | --- | --- |
+| `index.mdx` | `index` | `/` |
+| `quickstart.mdx` | `quickstart` | `/quickstart` |
+| `guides/setup.mdx` | `guides/setup` | `/guides/setup` |
+| `guides/index.mdx` | `guides/index` | `/guides` |
+
+Products, versions, and languages can add prefixes to these URLs. The default
+item on each switchable axis remains unprefixed.
+
+## Name and organize files
+
+- Use lowercase, descriptive file names with hyphens.
+- Group related pages in directories that reflect their subject.
+- Treat a move as two changes: move the file and update every navigation and
+  cross-page reference.
+- Match path capitalization exactly; case differences can fail after
+  deployment even when a local filesystem tolerates them.
+- Keep assets separate from page files when that makes ownership clearer.
+
+## Link between pages
+
+Use site-root URLs for documentation links:
+
+```md
+[Preview locally](/getting-started/local-preview)
+```
+
+Add a heading fragment when linking to a section:
+
+```md
+[Use another port](/getting-started/local-preview#use-another-port)
+```
+
+Heading fragments are generated from heading text. If a heading changes,
+update links that target its fragment.
+
+## Verify a new page
+
+1. Open the page through the sidebar under `velu dev`.
+2. Confirm the URL, title, description, headings, and previous/next links.
+3. Check internal links and images.
+4. Run `velu validate`.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Learn the supported <a href="/essentials/markdown">Markdown syntax</a>.</li>
+  <li>Add the page to <a href="/essentials/navigation">navigation</a>.</li>
+</ol>

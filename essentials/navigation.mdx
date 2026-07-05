@@ -1,25 +1,57 @@
 ---
-title: Navigation
-description: Organize your docs with tabs, groups, and pages.
+title: Navigation configuration
+description: Organize documentation with pages, groups, tabs, anchors, and generated API sections.
 ---
 
-`navigation` in `velu.json` is a tree. The pieces, outermost to
-innermost:
+`navigation` in `velu.json` determines which authored pages Velu loads, their
+reading order, their URLs, and the sidebar and header structure around them.
 
-- **tabs** — top-level sections in the header (e.g. Guides, API).
-- **groups** — sidebar sections within a tab.
-- **pages** — the page paths in a group; a page may also be a nested
-  group.
-- **anchors** — pinned links (often external) shown above the groups.
+<Columns cols={2}>
+
+<Card title="Pages and groups" icon="list-tree" cta={{ label: "Configure groups", href: "/essentials/navigation#configure-groups" }}>
+Create the sidebar hierarchy and control page reading order.
+</Card>
+
+<Card title="Tabs" icon="panels-top-left" cta={{ label: "Add tabs", href: "/essentials/navigation#add-top-level-tabs" }}>
+Separate major documentation areas without adding URL prefixes.
+</Card>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="Anchors" icon="pin" cta={{ label: "Add anchors", href: "/essentials/navigation#add-pinned-anchors" }}>
+Keep important external destinations above the sidebar.
+</Card>
+
+<Card title="Generated API sections" icon="braces" cta={{ label: "Generate API navigation", href: "/essentials/navigation#generate-api-navigation" }}>
+Turn OpenAPI operations into tagged sidebar sections and pages.
+</Card>
+
+</Columns>
+
+<Callout type="tip">
+
+Replace `yourdomain.com` in navigation examples with a destination owned by
+your organization.
+
+</Callout>
+
+## Start with groups and pages
+
+Use groups when a site needs one sidebar and no top-level tabs:
 
 ```json
 {
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
-        "groups": [
-          { "group": "Getting Started", "pages": ["index", "quickstart"] }
+        "group": "Get started",
+        "icon": "rocket",
+        "pages": [
+          "index",
+          "quickstart",
+          "guides/installation"
         ]
       }
     ]
@@ -27,13 +59,207 @@ innermost:
 }
 ```
 
-<Callout type="note">
-  Sidebar labels come from each page's frontmatter `title` — you don't
-  repeat them in `navigation`.
+Page strings are project-relative paths without `.mdx`. Their array order
+controls sidebar order and previous/next navigation. A page's frontmatter
+`title` supplies its label; when no title is available, Velu title-cases the
+last URL segment.
+
+## Understand container precedence
+
+A navigation container uses the highest-precedence structural array it
+contains:
+
+```text
+products → versions → languages → tabs → groups → pages
+```
+
+Place lower levels inside the selected higher level. For example, when a
+container has `products`, sibling `tabs` are ignored; put the tabs inside each
+product instead. Anchors can exist beside the selected level.
+
+Dropdown navigation is not supported.
+
+## Configure groups
+
+<Field name="group" type="string" required>
+Sets the sidebar section or nested-group label.
+</Field>
+
+<Field name="pages" type="array">
+Contains ordered extensionless page paths and nested group objects.
+</Field>
+
+<Field name="icon" type="string">
+Sets a Lucide icon on a group or nested-group label.
+</Field>
+
+<Field name="root" type="string">
+Adds a landing page as the first item in the group. The group heading itself
+remains text rather than a link.
+</Field>
+
+Nest a group by placing its object inside another group's `pages`:
+
+```json
+{
+  "group": "Configuration",
+  "root": "configuration/index",
+  "pages": [
+    "configuration/overview",
+    {
+      "group": "Authentication",
+      "icon": "key-round",
+      "pages": [
+        "configuration/auth/api-keys",
+        "configuration/auth/oauth"
+      ]
+    }
+  ]
+}
+```
+
+The active page's ancestor groups open automatically. Readers can expand and
+collapse other nested groups.
+
+<Callout type="warning">
+
+Do not repeat the `root` page in `pages`. Both entries resolve to the same URL,
+so Velu warns about a duplicate and keeps the first entry.
+
 </Callout>
 
-## Multiple products, versions, languages
+## Add top-level tabs
 
-Wrap your tabs in `products`, `versions`, or `languages` to offer a
-switcher. The active non-default choice becomes a URL prefix
-(`/v2/...`, `/fr/...`).
+Use tabs when a site needs distinct top-level sections with different
+sidebars:
+
+```json
+{
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": ["index", "quickstart"]
+          }
+        ]
+      },
+      {
+        "tab": "Status",
+        "icon": "activity",
+        "href": "https://status.yourdomain.com"
+      }
+    ]
+  }
+}
+```
+
+<Field name="tab" type="string" required>
+Sets the top-navigation label.
+</Field>
+
+<Field name="icon" type="string">
+Sets a Lucide icon beside the tab label.
+</Field>
+
+<Field name="groups or pages" type="array">
+Defines the in-site content for the tab. Selecting the tab opens its first
+page.
+</Field>
+
+<Field name="href" type="string">
+Sets a direct destination for a tab that has no pages. External destinations
+open in the current browser tab.
+</Field>
+
+Tabs organize the interface but do not add a URL prefix. Page paths and any
+product, version, or language context determine the URL.
+
+## Add pinned anchors
+
+Anchors are persistent links displayed above the sidebar. Use them for
+destinations such as status, support, or community sites:
+
+```json
+{
+  "anchors": [
+    {
+      "anchor": "Status",
+      "icon": "activity",
+      "href": "https://status.yourdomain.com"
+    }
+  ]
+}
+```
+
+<Field name="anchor" type="string" required>
+Sets the displayed link label.
+</Field>
+
+<Field name="href" type="string" required>
+Sets the destination. Anchors render as external links and open in a new tab.
+</Field>
+
+<Field name="icon" type="string">
+Sets a Lucide icon beside the anchor label.
+</Field>
+
+Root anchors appear throughout the site. Anchors placed on a product, version,
+language, or tab appear while that branch is active. Velu combines anchors
+from every active level.
+
+## Generate API navigation
+
+Set `openapi` on a tab or group to a local JSON or YAML path, remote URL, or an
+array of specifications:
+
+```json
+{
+  "tab": "API Reference",
+  "openapi": "/openapi.json",
+  "groups": [
+    {
+      "group": "Overview",
+      "pages": ["api-reference/introduction"]
+    }
+  ]
+}
+```
+
+On a tab, Velu appends generated sidebar groups based on each operation's first
+tag. On a group, generated operations are appended directly to that group's
+authored pages. An optional `api` block on the same tab or group overrides the
+root API defaults for those generated operations.
+
+Detailed OpenAPI and playground behavior belongs to the API documentation
+section. The repository's example specification is a demonstration API, not a
+Velu product API.
+
+## Avoid URL collisions
+
+Two entries that resolve to the same URL create a warning, and Velu keeps only
+the first. Reusing the same source page is valid when a product, version, or
+language gives each occurrence a different URL prefix.
+
+Run `velu validate` after changing navigation. Missing `.mdx` pages and invalid
+configuration shapes are errors. Duplicate URLs and invalid language codes are
+warnings, so review warnings even when the command exits successfully.
+
+## Verify navigation
+
+1. Run `velu dev` and open every top-level tab.
+2. Expand nested groups and confirm the active page opens its ancestors.
+3. Test anchors and direct-link tabs.
+4. Check sidebar order and previous/next links.
+5. Resize the site and verify the mobile navigation.
+6. Run `velu validate` and resolve errors and warnings.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Add <a href="/essentials/navigation-switchers">products, versions, or languages</a> when readers need a switcher.</li>
+  <li>Create labels and descriptions with <a href="/essentials/pages">frontmatter</a>.</li>
+</ol>

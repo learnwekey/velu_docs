@@ -1,0 +1,149 @@
+---
+title: Appearance and branding
+description: Configure site colors, light and dark modes, typography, logos, and favicons.
+---
+
+Use `colors`, `font`, `favicon`, and `logo` in `velu.json` to apply your
+documentation site's visual identity. Velu provides built-in light and dark
+color modes; it does not expose a selectable theme catalog in version 0.2.27.
+
+<Columns cols={2}>
+
+<Card title="Accent colors" icon="palette">
+Set a primary brand color and optional light- and dark-mode overrides.
+</Card>
+
+<Card title="Color modes" icon="sun-moon">
+Follow the reader's system preference and remember an explicit mode choice.
+</Card>
+
+</Columns>
+
+<Columns cols={2}>
+
+<Card title="Typography" icon="type">
+Apply a Google Font family across documentation text and interface elements.
+</Card>
+
+<Card title="Brand assets" icon="image">
+Add a favicon and one logo or separate light- and dark-mode logos.
+</Card>
+
+</Columns>
+
+## Configure accent colors
+
+```json
+{
+  "colors": {
+    "primary": "#2563eb",
+    "light": "#1d4ed8",
+    "dark": "#60a5fa"
+  }
+}
+```
+
+<Field name="colors.primary" type="CSS color" required>
+Sets the default accent and the brand color used by generated metadata and
+social images.
+</Field>
+
+<Field name="colors.light" type="CSS color" default="colors.primary">
+Overrides the accent in light mode.
+</Field>
+
+<Field name="colors.dark" type="CSS color" default="colors.primary">
+Overrides the accent in dark mode.
+</Field>
+
+Velu accepts CSS colors such as hex values, named colors, and functions like
+`rgb()`, `hsl()`, and `oklch()`. Validation can flag an obviously malformed
+value, but it cannot measure contrast. Test text, links, callouts, code, and API
+badges in both modes.
+
+## Understand light and dark mode
+
+On a reader's first visit, Velu follows the operating-system color preference.
+The header toggle switches between light and dark mode and saves the reader's
+choice in the browser. If no explicit choice is saved, later operating-system
+changes update the site mode.
+
+The `light` and `dark` color fields change the accent; they do not define
+separate site themes. Velu's components use built-in mode-aware design tokens.
+
+## Configure typography
+
+```json
+{
+  "font": {
+    "family": "Inter"
+  }
+}
+```
+
+`font.family` is required when `font` is present. Velu loads the named Google
+Font with weights from 300 through 700 and applies it as the sans-serif family.
+When `font` is absent, Velu uses `Google Sans Flex`.
+
+<Callout type="note">
+
+Font loading depends on Google Fonts and the reader's network and content
+security policies. The browser falls back to a generic sans-serif font if the
+configured family cannot load.
+
+</Callout>
+
+## Add a favicon
+
+```json
+{
+  "favicon": "/favicon.svg"
+}
+```
+
+The path is relative to the project root. Velu assigns known MIME types for
+SVG, ICO, PNG, JPEG, GIF, WebP, and AVIF files. `velu validate` reports a
+missing local favicon.
+
+## Add a logo
+
+Use one image in both color modes:
+
+```json
+{
+  "logo": "/images/logo.svg"
+}
+```
+
+Use separate images when the logo needs different contrast in each mode:
+
+Replace `yourdomain.com` with the destination for your own organization.
+
+```json
+{
+  "logo": {
+    "light": "/images/logo-dark-text.svg",
+    "dark": "/images/logo-light-text.svg",
+    "href": "https://yourdomain.com"
+  }
+}
+```
+
+Both `light` and `dark` are required in the object form. `href` defaults to the
+documentation root. When `logo` is absent, the project `name` appears as a text
+wordmark. Validation reports a missing local logo file.
+
+## Verify the brand
+
+1. Run `velu dev` and inspect representative content in light and dark mode.
+2. Confirm that the reader's mode choice remains after a reload.
+3. Resize the page and check the logo and header at narrow widths.
+4. Confirm the favicon in the browser tab.
+5. Run `velu validate`.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Configure <a href="/essentials/header-footer">header and footer links</a>.</li>
+  <li>Configure <a href="/essentials/seo-social">SEO and social sharing</a>.</li>
+</ol>

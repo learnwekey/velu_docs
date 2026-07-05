@@ -1,91 +1,89 @@
 ---
 title: Preview locally
-description: Run your documentation locally and review changes before publishing.
+description: Start the Velu development server and review documentation changes as you write.
 ---
 
-`velu run` builds the documentation, starts a local site, and watches the
-project for changes.
+`velu dev` starts a live preview and watches the project for changes.
 
 ## Start the preview
 
-From the directory containing `docs.json` or `velu.json`, run:
+From the directory containing `velu.json`, run:
 
 ```bash
-velu run
+velu dev
+```
+
+You can also pass a project directory:
+
+```bash
+velu dev path/to/yourcompany-docs
 ```
 
 Velu prints the preview URL when the server is ready. The default is:
 
 ```text
-http://localhost:4321
+http://localhost:8358
 ```
-
-Run the command from the directory containing the Velu configuration.
 
 ## Review changes as you write
 
-The preview reloads when you change:
-
-- A Markdown page.
-- `velu.json`.
-
-Use the preview to check navigation, components, code examples, images,
-branding, and generated API pages before publishing.
+The preview reloads when you change an `.mdx` page or `velu.json`. Use it to
+review navigation, built-in components, code examples, images, branding, and
+generated API pages before publishing.
 
 <Callout type="note">
 
-Some hosted capabilities depend on Velu's production services. Their controls
-may be unavailable or use preview behavior while running locally.
+Search and hosted AI services are unavailable or use preview behavior under
+`velu dev`. Validate their production behavior on a published preview or site.
 
 </Callout>
 
 ## Use another port
 
-Pass the `--port` option:
+Set the `PORT` environment variable for the command:
 
 ```bash
-velu run --port 4322
+PORT=5180 velu dev
 ```
 
-Velu then serves the site at `http://localhost:4322`.
+Velu then serves the site at `http://localhost:5180`.
 
 ## Stop the preview
 
 Return to the terminal running Velu and press `Ctrl+C`.
 
-## Troubleshooting
+## Troubleshoot the preview
 
 <AccordionGroup>
 
-<Accordion title="Velu cannot find the configuration">
+<Accordion title="Velu cannot find velu.json">
 
-Run the command from the project root. If the repository is new, run
-`velu init` before starting the site.
+Run the command from the project root or pass the project directory explicitly.
+Use `velu init <project-name>` only when creating a separate new project.
 
 </Accordion>
 
-<Accordion title="The default port is already in use">
+<Accordion title="Port 8358 is already in use">
 
 Start the preview on another port:
 
 ```bash
-velu run --port 4322
+PORT=5180 velu dev
 ```
 
 </Accordion>
 
 <Accordion title="A page does not appear">
 
-Confirm that the Markdown file exists and that its path appears in the
-`navigation` section of `velu.json` without the file extension. Then run
-`velu lint`.
+Confirm that the `.mdx` file exists and that its extensionless path appears in
+`navigation` in `velu.json`. Then run `velu validate`.
 
 </Accordion>
 
 <Accordion title="Changes do not reload">
 
-Check the terminal for a Markdown or configuration error. Resolve the error
-and save the file again. Restart `velu run` if the process has stopped.
+Check the terminal for an MDX or configuration error. Correct it, save the
+file, and restart `velu dev` if the process stopped.
 
 </Accordion>
 
@@ -94,6 +92,6 @@ and save the file again. Restart `velu run` if the process has stopped.
 ## Next steps
 
 <ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
-  <li><a href="/getting-started/lint">Lint the project</a>.</li>
+  <li><a href="/getting-started/validate">Validate the project</a>.</li>
   <li><a href="/getting-started/deployment">Publish a change</a>.</li>
 </ol>

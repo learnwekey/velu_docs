@@ -26,7 +26,7 @@ is required.
   <li>Choose the dashboard editor or Git deployment workflow.</li>
   <li>Preview the changed page and confirm its content, navigation, and links.</li>
   <li>If publishing from the dashboard, confirm that you can edit and publish the project.</li>
-  <li>If deploying from Git, confirm that the repository is connected to the correct Velu project, you know its production branch, you can push or merge to that branch, and <code>velu lint</code> passes.</li>
+  <li>If deploying from Git, confirm that the repository is connected to the correct Velu project, you know its production branch, you can push or merge to that branch, and <code>velu validate</code> passes.</li>
 </ol>
 
 ## Publish from the dashboard editor
@@ -71,10 +71,10 @@ git diff
 
 </Step>
 
-<Step title="Lint the project">
+<Step title="Validate the project">
 
 ```bash
-velu lint
+velu validate
 ```
 
 Resolve errors before continuing.
@@ -86,7 +86,7 @@ Resolve errors before continuing.
 Stage only the intended files and use a specific commit message:
 
 ```bash
-git add quickstart.md velu.json
+git add quickstart.mdx velu.json
 git commit -m "Document the onboarding workflow"
 ```
 
@@ -115,24 +115,6 @@ examples, and links.
 </Step>
 
 </Steps>
-
-<Callout type="tip">
-
-Run `velu build` when you need to inspect or deploy the generated static site.
-The output is written to `.velu-out/out`.
-
-</Callout>
-
-## Build a static site
-
-Run the production build from the documentation directory:
-
-```bash
-velu build
-```
-
-Deploy the contents of `.velu-out/out` to a static hosting provider such as
-Netlify, Vercel, or GitHub Pages.
 
 ## Review changes with preview deployments
 
@@ -163,7 +145,7 @@ publish action.
 
 <Accordion title="The build reports a content error">
 
-Pull the affected commit locally, run `velu lint`, and start `velu run` to
+Pull the affected commit locally, run `velu validate`, and start `velu dev` to
 reproduce the issue. Correct it and push a new commit.
 
 </Accordion>
@@ -172,7 +154,7 @@ reproduce the issue. Correct it and push a new commit.
 
 For a dashboard publication, confirm that the page was included in the publish
 action. For a Git deployment, confirm that the page file was committed and its
-path appears in `velu.json` navigation without the `.md` or `.mdx` extension.
+path appears in `velu.json` navigation without the `.mdx` extension.
 
 </Accordion>
 
@@ -189,7 +171,7 @@ expected documentation domain and refresh after publication completes.
 ## Next steps
 
 <ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
-  <li>Configure <a href="/essentials/settings">site settings</a>.</li>
+  <li>Configure <a href="/essentials/appearance">site appearance</a>.</li>
   <li>Organize <a href="/essentials/navigation">navigation</a>.</li>
-  <li>Learn how to <a href="/essentials/markdown">write Markdown content</a>.</li>
+  <li>Learn how to <a href="/essentials/markdown">write Markdown in MDX pages</a>.</li>
 </ol>

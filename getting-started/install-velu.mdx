@@ -1,74 +1,89 @@
 ---
 title: Install Velu
-description: Install the Velu package and use its local documentation commands.
+description: Install the current Velu CLI and learn which local commands it provides.
 ---
 
-Install Velu to initialize a documentation project, run a local site, check
-configuration and page references, and create a production build.
+Install `@veluai/velu` to scaffold, preview, and validate a documentation
+project from your terminal.
 
 ## Requirements
 
-- Node.js 20.9 or later.
-- npm.
+- Node.js 18 or later.
+- npm, or another package runner that can execute npm packages.
 - Git for the recommended docs-as-code workflow.
 
-Check your Node.js version:
+Check the installed Node.js version:
 
 ```bash
 node --version
 ```
 
-## Install Velu
+## Install the CLI
 
 <CodeGroup>
   <CodeBlock title="Install globally" language="bash">
-    {`npm install --global @aravindc26/velu`}
+    {`npm install --global @veluai/velu`}
   </CodeBlock>
   <CodeBlock title="Run with npx" language="bash">
-    {`npx @aravindc26/velu run`}
+    {`npx @veluai/velu dev .`}
   </CodeBlock>
 </CodeGroup>
 
 A global installation provides the shorter `velu` command. Use npx when you
 do not want to install the package globally.
 
+Verify a global installation:
+
+```bash
+velu --version
+```
+
 ## Available commands
 
 | Command | Purpose |
 | --- | --- |
-| `velu init` | Scaffold a documentation project in the current directory. |
-| `velu lint` | Validate the configuration and check referenced pages. |
-| `velu run` | Build and start the local site on port 4321. |
-| `velu run --port <number>` | Start the local site on another port. |
-| `velu build` | Build the static site without starting a server. |
+| `velu init <project-name>` | Create a new project directory from the starter template. |
+| `velu dev [directory]` | Start the live preview for a project. The directory defaults to the current directory. |
+| `velu validate [directory]` | Check configuration, navigation, assets, MDX, components, and literal constrained properties. |
+| `velu update` | Install the latest `@veluai/velu` release globally. |
 
-`velu build` writes the static output to `.velu-out/out`.
+The public CLI does not expose a standalone production-build command. Hosted
+projects are built during Velu's publishing workflow.
 
-## Initialize a new project
+`velu dev` checks for a newer published CLI before booting. Set
+`VELU_NO_UPDATE=1` to skip that auto-update gate for a session.
 
-Create and enter the repository directory before initializing it:
+## Initialize a project
+
+Run `init` from the directory that should contain the new project directory:
 
 ```bash
-mkdir your-docs-repo
-cd your-docs-repo
-velu init
+velu init yourcompany-docs
+cd yourcompany-docs
+velu dev
 ```
 
-Velu creates a site configuration, sample Markdown pages, tabs, and groups. It
-will not initialize the directory when `docs.json` or `velu.json` already
-exists.
+The target directory must be absent or empty. Velu creates `velu.json`, a
+favicon, an example OpenAPI document, and starter `.mdx` pages.
 
-## Troubleshooting
+<Callout type="warning">
+
+Do not run `velu init .` in a non-empty repository. The command refuses to
+replace files in a non-empty target directory.
+
+</Callout>
+
+## Troubleshoot installation
 
 <AccordionGroup>
 
 <Accordion title="The velu command is not found">
 
 Open a new terminal after installing globally. If the command remains
-unavailable, run Velu through npx:
+unavailable, run the package through npx:
 
 ```bash
-npx @aravindc26/velu run
+npx @veluai/velu dev .
 ```
 
 </Accordion>
@@ -78,22 +93,22 @@ npx @aravindc26/velu run
 Use npx instead of changing system-directory permissions:
 
 ```bash
-npx @aravindc26/velu lint
+npx @veluai/velu validate .
 ```
 
 </Accordion>
 
 <Accordion title="The Node.js version is unsupported">
 
-Install Node.js 20.9 or later, reopen the terminal, and run `node --version`
-before retrying the installation.
+Install Node.js 18 or later, reopen the terminal, and run `node --version`
+before retrying.
 
 </Accordion>
 
 <Accordion title="Velu cannot find the project">
 
-Run commands from the directory containing `docs.json` or `velu.json`. Run
-`velu init` only when starting a new project.
+Pass the project directory to the command, or run it from the directory that
+contains `velu.json`.
 
 </Accordion>
 
@@ -102,6 +117,6 @@ Run commands from the directory containing `docs.json` or `velu.json`. Run
 ## Next steps
 
 <ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
-  <li>Start a <a href="/getting-started/local-preview">local site</a>.</li>
-  <li>Learn how to <a href="/getting-started/lint">lint the project</a>.</li>
+  <li>Start a <a href="/getting-started/local-preview">local preview</a>.</li>
+  <li>Learn how to <a href="/getting-started/validate">validate the project</a>.</li>
 </ol>

@@ -1,29 +1,120 @@
 ---
-title: Code blocks
-description: Syntax-highlighted code and groups.
+title: Code examples
+description: Add fenced code, filenames, line numbers, highlights, and equivalent language examples.
 ---
 
-Fenced code blocks are upgraded to a rich code component with a copy
-button and a language label.
+Use fenced code for most examples. Velu adds syntax highlighting and a copy
+button automatically.
 
-```js
+<Callout type="tip">
+
+Replace `yourdomain.com` with your own API or application domain before using
+an example.
+
+</Callout>
+
+## Add a fenced code block
+
+Specify the language after the opening fence:
+
+````md
+```javascript
 export function greet(name) {
   return `Hello, ${name}!`;
 }
 ```
+````
 
-## Code groups
+Use `text` for output or values that do not have a programming language:
 
-Show the same example in several languages with a `CodeGroup`. Each
-alternative is a `<CodeBlock>` with a `title` (the tab label) and a
-`language` (drives syntax highlighting and the tab's language icon):
+````md
+```text
+✓ No issues found.
+```
+````
+
+## Add a filename and line numbers
+
+Use `CodeBlock` when an example needs presentation properties that a fence
+cannot express:
+
+```mdx
+<CodeBlock
+  filename="src/client.js"
+  language="javascript"
+  lineNumbers
+  highlight="2-3"
+>
+  {`const client = createClient({
+  baseUrl: "https://api.yourdomain.com",
+  timeout: 5000,
+});`}
+</CodeBlock>
+```
+
+<Field name="filename" type="string">
+Adds a non-interactive file label above a standalone block. It takes priority
+over `title` when both are set.
+</Field>
+
+<Field name="language" type="string" default="text">
+Selects syntax highlighting and the automatic language icon.
+</Field>
+
+<Field name="lineNumbers" type="boolean" default="false">
+Shows one-based line numbers.
+</Field>
+
+<Field name="highlight" type="string | number[]">
+Highlights one-based lines. A string accepts comma-separated lines and ranges,
+such as `"1-3,6"`.
+</Field>
+
+<Field name="icon" type="string">
+Overrides the automatic language icon with a Lucide icon ID.
+</Field>
+
+<Field name="withIcon" type="boolean" default="true">
+Set to `false` to suppress both automatic and language icons.
+</Field>
+
+## Group equivalent examples
+
+Use `CodeGroup` only when each tab performs the same task:
 
 <CodeGroup>
-  <CodeBlock title="index.js" language="javascript">
-    {`fetch('/api/hello').then((r) => r.json());`}
+  <CodeBlock title="JavaScript" language="javascript">
+    {`const response = await fetch("https://api.yourdomain.com/users");`}
   </CodeBlock>
-  <CodeBlock title="main.py" language="python">
+  <CodeBlock title="Python" language="python">
     {`import requests
-requests.get('/api/hello').json()`}
+response = requests.get("https://api.yourdomain.com/users")`}
   </CodeBlock>
 </CodeGroup>
+
+Each child must be a `CodeBlock`. Its `title` becomes the tab label.
+`CodeGroup.defaultIndex` selects the initially active zero-based tab and
+defaults to `0`.
+
+<Callout type="warning">
+
+Do not split sequential commands into tabs. A reader may run only the visible
+tab and miss a required action.
+
+</Callout>
+
+## Write safe examples
+
+- Use runnable values where practical.
+- Use environment-variable placeholders for credentials.
+- Never publish working keys, tokens, tenant IDs, or personal paths.
+- Explain the directory in which a command must run.
+- Show expected output when it verifies success.
+- Keep comments focused on behavior that the surrounding prose does not cover.
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Add accessible <a href="/essentials/images">images and media</a>.</li>
+  <li>Review the complete <a href="/components/code-ai">code and prompt component reference</a>.</li>
+</ol>

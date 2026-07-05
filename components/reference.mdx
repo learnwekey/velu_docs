@@ -1,0 +1,102 @@
+---
+title: Reference elements
+description: Document fields and display real HTTP methods and paths in manual reference pages.
+---
+
+Use `Field` for configuration properties and API parameters. Use
+`MethodBadge` and `ApiPath` to identify real HTTP endpoints in prose or manual
+reference pages.
+
+## Field
+
+```mdx
+<Field
+  name="timeout"
+  pre="client"
+  type="number"
+  required
+  default={5000}
+  post="milliseconds"
+>
+  Maximum time to wait for a response.
+</Field>
+```
+
+<Field name="name" type="node">
+Property or parameter identifier.
+</Field>
+
+<Field name="pre" type="node">
+Small chip before the name, such as a namespace or HTTP method.
+</Field>
+
+<Field name="type" type="node">
+Type chip after the name.
+</Field>
+
+<Field name="required" type="boolean" default="false">
+Displays the `required` indicator.
+</Field>
+
+<Field name="default" type="any">
+Displays `default: value` when the value is not `null` or `undefined`.
+</Field>
+
+<Field name="post" type="node">
+Trailing metadata chip.
+</Field>
+
+Adjacent `Field` components receive separators automatically. Keep conceptual
+explanations outside a long field list.
+
+## MethodBadge
+
+```mdx
+<MethodBadge method="POST" />
+```
+
+`method` defaults to `GET` and accepts `GET`, `POST`, `PUT`, `PATCH`, or
+`DELETE` without case sensitivity. Velu displays the method in uppercase and
+applies its method color.
+
+## ApiPath
+
+```mdx
+<ApiPath method="POST" path="/projects/{projectId}/deployments" />
+```
+
+<Field name="method" type="string" default="GET">
+GET, POST, PUT, PATCH, or DELETE. The method controls dynamic-parameter color.
+</Field>
+
+<Field name="path" type="string" default="">
+HTTP path. Segments wrapped in braces, such as `{projectId}`, render as
+distinct parameter pills.
+</Field>
+
+Combine endpoint elements when a manual reference needs both:
+
+```mdx
+<Columns cols={2}>
+  <MethodBadge method="GET" />
+  <ApiPath method="GET" path="/users/{userId}" />
+</Columns>
+```
+
+For a full API reference, prefer an OpenAPI specification. Generated pages
+provide parameter controls, examples, responses, and the configured playground
+without manually composing internal API primitives.
+
+<Callout type="warning">
+
+Do not use method badges or API paths as decoration. They assert that a real
+HTTP endpoint exists and should be backed by an approved API contract.
+
+</Callout>
+
+## Next steps
+
+<ol style={{ listStyleType: "decimal", paddingInlineStart: "1.5rem" }}>
+  <li>Review all <a href="/components/overview">author-facing components</a>.</li>
+  <li>Configure the generated API section through <a href="/essentials/navigation#generate-api-navigation">navigation</a>.</li>
+</ol>

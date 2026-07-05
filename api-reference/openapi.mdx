@@ -1,0 +1,47 @@
+---
+title: OpenAPI
+description: How Velu turns an OpenAPI spec into navigable reference pages.
+---
+
+Velu can turn an OpenAPI specification into a tab of generated reference pages.
+Each operation becomes a page entry, and the sidebar is grouped by tag so the
+reference stays navigable even when the spec gets large.
+
+<Callout type="note">
+  The starter repository ships with a demo spec. Replace it with your own spec
+  before treating the API reference as product documentation.
+</Callout>
+
+## What Velu reads
+
+<Steps>
+  <Step title="Point Velu at a spec">
+    Add an `openapi` field to the API tab or a group and point it at your JSON
+    or YAML file.
+  </Step>
+  <Step title="Let Velu expand the operations">
+    Velu turns the spec into per-operation pages and groups them by tag.
+  </Step>
+  <Step title="Review the generated pages">
+    Readers get the structured reference plus the interactive playground on each
+    operation page.
+  </Step>
+</Steps>
+
+## Minimal configuration
+
+```json
+{
+  "tab": "API Reference",
+  "openapi": "/openapi.json"
+}
+```
+
+<Field name="openapi" type="string" required>
+The OpenAPI JSON or YAML file that drives the generated reference tab.
+</Field>
+
+## What this guide does not cover
+
+Authentication schemes, proxy behavior, and the full API playground workflow are
+covered in separate API pages.

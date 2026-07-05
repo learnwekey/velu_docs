@@ -1,0 +1,46 @@
+---
+title: Search
+description: How Velu indexes and serves site search.
+---
+
+Velu ships with site search so readers can jump straight from a query to the
+right page. The current implementation is page-search first: it indexes the
+rendered docs, then surfaces matching pages and anchors in the header search
+palette.
+
+<Callout type="note">
+  This page covers the verified search behavior in the codebase. Natural-language
+  intent search is tracked separately until the hosted workflow is confirmed.
+</Callout>
+
+## How search works
+
+<Steps>
+  <Step title="Open search">
+    Readers launch the search palette from the header or with the keyboard
+    shortcut.
+  </Step>
+  <Step title="Type a query">
+    Velu queries the Pagefind index generated from the published docs.
+  </Step>
+  <Step title="Pick a result">
+    Results keep breadcrumb context, so readers can tell whether they are
+    opening a page or a matching anchor.
+  </Step>
+</Steps>
+
+## What search returns
+
+- Matching pages.
+- Matching anchors inside a page.
+- A page breadcrumb that helps disambiguate similar titles.
+
+<Accordion title="What to document separately">
+  The code proves page search. If you want to document natural-language intent
+  search, keep it in the evidence tracker until the product behavior is
+  available to verify.
+</Accordion>
+
+<Field name="Pagefind" type="index">
+The static search index that powers the published-site search experience.
+</Field>

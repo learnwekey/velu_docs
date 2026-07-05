@@ -1,0 +1,50 @@
+---
+title: API playground
+description: How to test OpenAPI operations with Velu's Try It UI.
+---
+
+Velu adds an interactive API playground to generated reference pages. Readers
+can inspect the request surface, try sample values, and send a real request
+from the page itself.
+
+<Steps>
+  <Step title="Inspect the operation">
+    Each operation gets a request row with method, path, and send action.
+  </Step>
+  <Step title="Try the request">
+    Velu fills in examples, lets readers edit them, and sends the request from
+    the page.
+  </Step>
+  <Step title="Read the response">
+    The inline API client expands the playground when readers need more room for
+    request and response data.
+  </Step>
+</Steps>
+
+## Configuration
+
+The playground behavior is controlled in `velu.json`:
+
+```json
+{
+  "api": {
+    "playground": {
+      "proxy": true
+    },
+    "examples": {
+      "languages": ["curl", "javascript", "python", "ruby"]
+    }
+  }
+}
+```
+
+Turn proxying off only when you want the browser to call the API directly and
+your CORS policy allows it.
+
+<Field name="api.playground.proxy" type="boolean" default="true">
+When `true`, requests flow through the dev server proxy.
+</Field>
+
+<Field name="api.examples.languages" type="string[]" default="curl, javascript, python, ruby">
+The snippet languages Velu generates for request examples.
+</Field>
